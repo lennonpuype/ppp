@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "expo": "^35.0.1",
+    "expo": "^33.0.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-native": "^0.61.3",
