@@ -12,7 +12,6 @@ class DrawingCanvas extends Component {
     p5.background("#000000");
 
     this.socket = openSocket('http://localhost:4000');
-    // this.socket.on('mouse', this.newDrawing);
   }
 
 

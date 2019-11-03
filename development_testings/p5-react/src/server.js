@@ -15,11 +15,16 @@ function newConnection(socket) {
   console.log('new connection:' + socket.id);
 
   socket.on('mouse', mouseMsg);
+  socket.on('user', getUser);
 
   function mouseMsg(data) {
-    console.log(data);
     //Momenteel enkel bedoeld voor de socket (niet jijzelf dus)
     socket.broadcast.emit('mouse', data);
+  }
+
+  function getUser() {
+    //Momenteel enkel bedoeld voor de socket (niet jijzelf dus)
+    socket.broadcast.emit('user', socket);
   }
 
 
