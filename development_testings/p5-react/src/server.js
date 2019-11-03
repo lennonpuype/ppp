@@ -22,9 +22,9 @@ function newConnection(socket) {
     socket.broadcast.emit('mouse', data);
   }
 
-  function getUser() {
+  function getUser(data) {
     //Momenteel enkel bedoeld voor de socket (niet jijzelf dus)
-    socket.broadcast.emit('user', socket);
+    socket.emit('user', data);
   }
 
 

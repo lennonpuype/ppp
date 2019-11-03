@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import Sketch from 'react-p5';
 import openSocket from 'socket.io-client';
-
-
-
 class StillCanvas extends Component {
 
   setup = (p5, canvasParentRef) => {

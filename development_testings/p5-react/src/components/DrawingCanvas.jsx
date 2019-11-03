@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import Sketch from 'react-p5';
 import openSocket from 'socket.io-client';
-
 class DrawingCanvas extends Component {
-
-
-
 
   setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 500).parent(canvasParentRef)
@@ -13,8 +9,6 @@ class DrawingCanvas extends Component {
 
     this.socket = openSocket('http://localhost:4000');
   }
-
-
 
   mouseDragged = (p5) => {
     console.log("Sending: " + p5.mouseX + "," + p5.mouseY);
@@ -29,8 +23,6 @@ class DrawingCanvas extends Component {
     p5.noStroke();
     p5.ellipse(p5.mouseX, p5.mouseY, 10, 10);
   }
-
-
 
   render() {
     return <Sketch setup={this.setup} mouseDragged={this.mouseDragged} />
