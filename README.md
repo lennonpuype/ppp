@@ -15,18 +15,24 @@ The game will be made in React, for the canvas to make sketches on we will use t
 
 # The game itselfs.
 ## Steps
-Login / Register, you also can play as guest.
+You standard play as guest.
+\
 You can host a lobby and will be able to get a qrcode or url to send to your friends.
+\
 Once the host starts the game, you'll still be able to join the game.
 
 ## Pointsystem
 The host can adjust the goal to win the game
+\
 If you guess first right you will receive 50 points.
+\
 If you guess wrong you will lose 1 point.
-
+\
 The goal can vary between 300 and 1500.
 
-## What can be added
+## What can be added later on
+Login / Register
+\
 Karma for ranking your account.
 \
 And Much Much More...
