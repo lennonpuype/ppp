@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Canvas from "./components/Canvas"
+import DrawingCanvas from "./components/DrawingCanvas";
+import StillCanvas from "./components/StillCanvas";
 
 class App extends Component {
   constructor() {
@@ -11,7 +12,8 @@ class App extends Component {
 
   render() {
     return (
-      <><Canvas /></>
+      <><DrawingCanvas />
+        <StillCanvas /></>
     );
   }
 }
