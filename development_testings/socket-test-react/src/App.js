@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { subscribeToTimer } from './api';
 
-class App extends Component {
-  constructor() {
-    super();
+
+
+const App = () => {
+
+  let dataVar = null;
+
+  function helloWorld(data) {
+    dataVar = data;
   }
 
-  render() {
+
+  if (dataVar !== null) {
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
 
-          <p className="App-intro">
-            This is a test
-          </p>
-
+          <p className="App-intro">This is a test</p>
 
         </header>
       </div>
     );
+  } else {
+    return (<></>)
   }
+
+
 
 }
 

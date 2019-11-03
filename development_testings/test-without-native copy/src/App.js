@@ -4,6 +4,7 @@ import './App.css';
 import CanvasDraw from "react-canvas-draw";
 import ColorBtn from "./components/ColorBtn";
 import FunctionBtn from "./components/FunctionBtn";
+import Iframe from 'react-iframe'
 
 class App extends Component {
 
@@ -59,7 +60,13 @@ class App extends Component {
           <FunctionBtn onButtonClick={this.handleDoSomethingWithCanvas} action="Clear" />
           <FunctionBtn onButtonClick={this.handleDoSomethingWithCanvas} action="Undo" />
         </div>
-
+        <Iframe url="http://localhost:3000"
+          width="450px"
+          height="450px"
+          id="myId"
+          className="myClassname"
+          display="initial"
+          position="relative" />
       </div >
 
     );
