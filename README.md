@@ -26,7 +26,7 @@ The host can adjust the goal to win the game
 \
 If you guess first right you will receive 50 points.
 \
-If you guess wrong you will lose 1 point.
+If you guess wrong you will lose 5 points.
 \
 The goal can vary between 300 and 1500.
 
