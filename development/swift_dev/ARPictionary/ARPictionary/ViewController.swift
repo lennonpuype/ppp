@@ -9,7 +9,7 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var arView: ARSCNView!
     
@@ -28,9 +28,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        configuration.planeDetection = .horizontal
+        //configuration.planeDetection = .vertical
         makeARView();
-
+        arView.delegate = self
     }
     
     func makeARView() {
@@ -66,6 +67,21 @@ class ViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool{
         return true
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+        print("New Plane Anchor found with extent: ", anchorPlane.extent)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+        print("Plane Anchor updatet with extent: ", anchorPlane.extent)
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+        print("Plane Anchor removed with extent: ", anchorPlane.extent)
     }
 
 
