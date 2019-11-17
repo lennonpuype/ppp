@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                
         let gameViewController = GameViewController()
         window?.rootViewController = gameViewController
+        
+        //Disable dimm of screen after several seconds
+        UIApplication.shared.isIdleTimerDisabled = true
         return true
     }
 
