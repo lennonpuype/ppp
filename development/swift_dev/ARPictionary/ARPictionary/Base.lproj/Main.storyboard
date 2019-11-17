@@ -19,27 +19,46 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </arscnView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tMW-CC-A0F">
-                                <rect key="frame" x="177" y="789" width="61" height="60"/>
+                                <rect key="frame" x="142" y="792" width="61" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="8fE-8O-AeO"/>
+                                    <constraint firstAttribute="width" constant="61" id="Gpx-Tg-sSp"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="PlusButton"/>
                                 <connections>
                                     <action selector="Button:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dUh-6J-zTx"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QJx-vh-foy">
+                                <rect key="frame" x="211" y="792" width="61" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="61" id="NT8-Ih-3Xc"/>
+                                    <constraint firstAttribute="height" constant="60" id="kgk-Q4-Zgj"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="MinButton"/>
+                                <connections>
+                                    <action selector="MinButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y2j-qB-7eY"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tMW-CC-A0F" secondAttribute="bottom" constant="13" id="Bfp-wx-wWN"/>
-                            <constraint firstItem="tMW-CC-A0F" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="177" id="DQJ-f8-8qi"/>
+                            <constraint firstItem="QJx-vh-foy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="748" id="APp-58-bEj"/>
                             <constraint firstItem="mQL-mD-lZh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="DdC-uU-Pjr"/>
-                            <constraint firstItem="tMW-CC-A0F" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="745" id="IDg-sK-YaQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="tMW-CC-A0F" secondAttribute="bottom" constant="10" id="Eui-Un-jU7"/>
+                            <constraint firstItem="tMW-CC-A0F" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="748" id="M6Y-l9-eY1"/>
+                            <constraint firstItem="tMW-CC-A0F" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="142" id="PzA-4w-3Fu"/>
                             <constraint firstItem="mQL-mD-lZh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="RMg-CP-Eyj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QJx-vh-foy" secondAttribute="trailing" constant="142" id="SNs-Mm-aQm"/>
+                            <constraint firstItem="QJx-vh-foy" firstAttribute="leading" secondItem="tMW-CC-A0F" secondAttribute="trailing" constant="8" id="UYC-aa-ibO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="QJx-vh-foy" secondAttribute="bottom" constant="10" id="ZZa-Mr-tU4"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mQL-mD-lZh" secondAttribute="trailing" id="b8p-P9-eoP"/>
                             <constraint firstItem="mQL-mD-lZh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="dhh-qk-NP0"/>
                             <constraint firstItem="mQL-mD-lZh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="glh-l8-Blw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mQL-mD-lZh" secondAttribute="bottom" id="jPi-wO-6FY"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mQL-mD-lZh" secondAttribute="bottom" id="mWO-Wf-BpI"/>
+                            <constraint firstItem="QJx-vh-foy" firstAttribute="leading" secondItem="tMW-CC-A0F" secondAttribute="trailing" constant="8" id="ocV-YB-gPc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mQL-mD-lZh" secondAttribute="trailing" id="u21-JQ-Dgw"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tMW-CC-A0F" secondAttribute="trailing" constant="176" id="ubr-m0-zF5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -53,6 +72,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="MinButton" width="512" height="512"/>
         <image name="PlusButton" width="512" height="512"/>
     </resources>
 </document>
