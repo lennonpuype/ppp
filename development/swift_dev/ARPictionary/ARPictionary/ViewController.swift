@@ -65,23 +65,48 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    override var prefersStatusBarHidden: Bool{
-        return true
+//    override var prefersStatusBarHidden: Bool{
+//        return true
+//    }
+    
+    func createFloor(anchor: ARPlaneAnchor) -> SCNNode{
+        let floor = SCNNode()
+        floor.name = "floor"
+        floor.eulerAngles = SCNVector3(90.degreesToRadians,0,0)
+        floor.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
+        floor.geometry?.firstMaterial?.diffuse.contents = UIImageView(image: #imageLiteral(resourceName: "Material"))
+        floor.geometry?.firstMaterial?.isDoubleSided = true
+        floor.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
+        return floor
+    }
+    
+    func removeNode(named: String){
+        arView.scene.rootNode.enumerateChildNodes{(node, _) in
+            if (node.name == named){
+                node.removeFromParentNode()
+            }
+        }
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("New Plane Anchor found with extent: ", anchorPlane.extent)
+        let floor = createFloor(anchor: anchorPlane)
+        node.addChildNode(floor)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("Plane Anchor updatet with extent: ", anchorPlane.extent)
+        removeNode(named: "floor")
+        let floor = createFloor(anchor: anchorPlane)
+        node.addChildNode(floor)
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
         guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
         print("Plane Anchor removed with extent: ", anchorPlane.extent)
+        removeNode(named: "floor")
     }
 
 
