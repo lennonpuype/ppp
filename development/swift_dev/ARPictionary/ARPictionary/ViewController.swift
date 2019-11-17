@@ -13,6 +13,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet weak var arView: ARSCNView!
     
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var xLabel: UILabel!
+    @IBOutlet weak var yLabel: UILabel!
+    @IBOutlet weak var zLabel: UILabel!
+    
     @IBAction func Button(_ sender: Any) {
         print("Plus Pressed");
         addBox();
@@ -24,6 +29,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     let configuration = ARWorldTrackingConfiguration()
+    
+    var startingPositionNode: SCNNode?
+    var endingPositionNode: SCNNode?
+    let cameraRelativePosition = SCNVector3(0,0,-0.1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +54,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         //Will create ambient light in scene for shadows etc
         arView.autoenablesDefaultLighting = true;
-        
     }
     
     func addBox(){
@@ -91,36 +99,62 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("New Plane Anchor found with extent: ", anchorPlane.extent)
-        let floor = createFloor(anchor: anchorPlane)
-        node.addChildNode(floor)
-    }
+//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+//        //print("New Plane Anchor found with extent: ", anchorPlane.extent)
+//        let floor = createFloor(anchor: anchorPlane)
+//        node.addChildNode(floor)
+//    }
+//
+//    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+//        //print("Plane Anchor updatet with extent: ", anchorPlane.extent)
+//        removeNode(named: "floor")
+//        let floor = createFloor(anchor: anchorPlane)
+//        node.addChildNode(floor)
+//    }
+//
+//    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
+//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
+//        //print("Plane Anchor removed with extent: ", anchorPlane.extent)
+//        removeNode(named: "floor")
+//    }
     
-    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("Plane Anchor updatet with extent: ", anchorPlane.extent)
-        removeNode(named: "floor")
-        let floor = createFloor(anchor: anchorPlane)
-        node.addChildNode(floor)
-    }
-    
-    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-        print("Plane Anchor removed with extent: ", anchorPlane.extent)
-        removeNode(named: "floor")
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if(startingPositionNode != nil && endingPositionNode != nil){
+            return
+        }
+        guard let xDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.x else {return}
+        guard let yDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.y else {return}
+        guard let zDistance = Service.distance3(fromStartingPositionNode: startingPositionNode, onView: arView, cameraRelativePosition: cameraRelativePosition)?.z else {return}
+        
+        DispatchQueue.main.sync {
+            self.xLabel.text = String(format: "%.2f", xDistance) + "m"
+            self.yLabel.text = String(format: "%.2f",yDistance) + "m"
+            self.zLabel.text = String(format: "%.2f",zDistance) + "m"
+            self.distanceLabel.text = String(format: "%.2f", Service.distance(x: xDistance, y: yDistance, z: zDistance)) + "m"
+        }
     }
 
     @objc func handleTap(sender: UITapGestureRecognizer){
-        let tappedView = sender.view as! SCNView
-        let touchLocation = sender.location(in: tappedView)
-        let hitTest = tappedView.hitTest(touchLocation, options: nil)
-        if (!hitTest.isEmpty){
-            let result = hitTest.first!
-            let name = result.node.name
-            let geometry = result.node.geometry
-            print("Tapped \(String(describing: name)) with geometry: \(String(describing: geometry))")
+        if(startingPositionNode != nil && endingPositionNode != nil){
+            startingPositionNode?.removeFromParentNode()
+            endingPositionNode?.removeFromParentNode()
+            startingPositionNode = nil
+            endingPositionNode = nil
+            //
+        }else if (startingPositionNode != nil && endingPositionNode == nil){
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.005))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            endingPositionNode = sphere
+            //
+        }else if (startingPositionNode == nil && endingPositionNode == nil){
+            let sphere = SCNNode(geometry: SCNSphere(radius: 0.005))
+            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
+            startingPositionNode = sphere
+            //
         }
     }
 }

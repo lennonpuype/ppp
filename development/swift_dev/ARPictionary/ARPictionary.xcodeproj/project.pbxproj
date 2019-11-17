@@ -16,6 +16,7 @@
 		C3521FC623815A4A00D2D0FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3521FC423815A4A00D2D0FE /* LaunchScreen.storyboard */; };
 		C3521FCE23815A8600D2D0FE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3521FCD23815A8600D2D0FE /* GameViewController.swift */; };
 		C3521FD023816C5B00D2D0FE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3521FCF23816C5B00D2D0FE /* Extension.swift */; };
+		C3521FD22381A07C00D2D0FE /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3521FD12381A07C00D2D0FE /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		C3521FC723815A4A00D2D0FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3521FCD23815A8600D2D0FE /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		C3521FCF23816C5B00D2D0FE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		C3521FD12381A07C00D2D0FE /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 				C3521FBF23815A4900D2D0FE /* ARPictionary.xcdatamodeld */,
 				C3521FCD23815A8600D2D0FE /* GameViewController.swift */,
 				C3521FCF23816C5B00D2D0FE /* Extension.swift */,
+				C3521FD12381A07C00D2D0FE /* Service.swift */,
 			);
 			path = ARPictionary;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3521FCE23815A8600D2D0FE /* GameViewController.swift in Sources */,
+				C3521FD22381A07C00D2D0FE /* Service.swift in Sources */,
 				C3521FBB23815A4900D2D0FE /* ViewController.swift in Sources */,
 				C3521FB723815A4900D2D0FE /* AppDelegate.swift in Sources */,
 				C3521FD023816C5B00D2D0FE /* Extension.swift in Sources */,
