@@ -18,14 +18,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var yLabel: UILabel!
     @IBOutlet weak var zLabel: UILabel!
     
-    @IBAction func Button(_ sender: Any) {
+    @IBAction func Button(_ sender: UIButton) {
         print("Plus Pressed");
-        addBox();
+        //addBox();
     }
+    @IBOutlet weak var buttonOutlet: UIButton!
     
-    @IBAction func MinButton(_ sender: Any) {
+    @IBAction func MinButton(_ sender: UIButton) {
         print("Min Pressed");
-        removeAllBoxes();
+        //removeAllBoxes();
     }
     
     let configuration = ARWorldTrackingConfiguration()
@@ -36,59 +37,20 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
         configuration.planeDetection = .horizontal
-        //configuration.planeDetection = .vertical
         makeARView();
         arView.delegate = self
-        
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-        arView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     func makeARView() {
         arView.session.run(configuration, options: [])
+        arView.autoenablesDefaultLighting = true;
         
         //Debugoptions
-        arView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
+//        arView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         
-        //Will create ambient light in scene for shadows etc
-        arView.autoenablesDefaultLighting = true;
-    }
-    
-    func addBox(){
-        let boxNode = SCNNode()
-        //boxNode.geometry = SCNBox(width: 0.05, height: 0.05, length: 0.05, chamferRadius: 0.002)
-        boxNode.geometry = SCNSphere(radius: 0.05)
-        boxNode.geometry?.firstMaterial?.diffuse.contents = UIImageView(image: #imageLiteral(resourceName: "Material"))
-        boxNode.position = SCNVector3(Float.random(-0.5, max: 0.5) , Float.random(-0.5, max: 0.5), Float.random(-0.5, max: 0.5))//x,y,z
-        
-        boxNode.name = "box";
-        //Add to the scene
-        arView.scene.rootNode.addChildNode(boxNode);
-    }
-    
-    func removeAllBoxes(){
-        arView.scene.rootNode.enumerateChildNodes{(node, _) in
-            if (node.name == "box"){
-                node.removeFromParentNode()
-            }
-        }
-    }
-    
-//    override var prefersStatusBarHidden: Bool{
-//        return true
-//    }
-    
-    func createFloor(anchor: ARPlaneAnchor) -> SCNNode{
-        let floor = SCNNode()
-        floor.name = "floor"
-        floor.eulerAngles = SCNVector3(90.degreesToRadians,0,0)
-        floor.geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
-        floor.geometry?.firstMaterial?.diffuse.contents = UIImageView(image: #imageLiteral(resourceName: "Material"))
-        floor.geometry?.firstMaterial?.isDoubleSided = true
-        floor.position = SCNVector3(anchor.center.x, anchor.center.y, anchor.center.z)
-        return floor
+        //arView.showsStatistics = true
     }
     
     func removeNode(named: String){
@@ -98,27 +60,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         }
     }
-    
-//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-//        //print("New Plane Anchor found with extent: ", anchorPlane.extent)
-//        let floor = createFloor(anchor: anchorPlane)
-//        node.addChildNode(floor)
-//    }
-//
-//    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
-//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-//        //print("Plane Anchor updatet with extent: ", anchorPlane.extent)
-//        removeNode(named: "floor")
-//        let floor = createFloor(anchor: anchorPlane)
-//        node.addChildNode(floor)
-//    }
-//
-//    func renderer(_ renderer: SCNSceneRenderer, didRemove node: SCNNode, for anchor: ARAnchor) {
-//        guard let anchorPlane = anchor as? ARPlaneAnchor else {return}
-//        //print("Plane Anchor removed with extent: ", anchorPlane.extent)
-//        removeNode(named: "floor")
-//    }
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if(startingPositionNode != nil && endingPositionNode != nil){
@@ -135,27 +76,24 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             self.distanceLabel.text = String(format: "%.2f", Service.distance(x: xDistance, y: yDistance, z: zDistance)) + "m"
         }
     }
-
-    @objc func handleTap(sender: UITapGestureRecognizer){
-        if(startingPositionNode != nil && endingPositionNode != nil){
-            startingPositionNode?.removeFromParentNode()
-            endingPositionNode?.removeFromParentNode()
-            startingPositionNode = nil
-            endingPositionNode = nil
-            //
-        }else if (startingPositionNode != nil && endingPositionNode == nil){
-            let sphere = SCNNode(geometry: SCNSphere(radius: 0.005))
-            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
-            endingPositionNode = sphere
-            //
-        }else if (startingPositionNode == nil && endingPositionNode == nil){
-            let sphere = SCNNode(geometry: SCNSphere(radius: 0.005))
-            sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
-            Service.addChildNode(sphere, toNode: arView.scene.rootNode, inView: arView, cameraRelativePosition: cameraRelativePosition)
-            startingPositionNode = sphere
-            //
+    
+    func renderer(_ renderer: SCNSceneRenderer, willRenderScene scene: SCNScene, atTime time: TimeInterval) {
+        DispatchQueue.main.async{
+            if(self.buttonOutlet.isHighlighted){
+                let sphere = SCNNode()
+                sphere.geometry = SCNSphere(radius: 0.005)
+                sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                Service.addChildNode(sphere, toNode: self.arView.scene.rootNode, inView: self.arView, cameraRelativePosition: self.cameraRelativePosition)
+            }else{
+                let sphere = SCNNode()
+                sphere.geometry = SCNSphere(radius: 0.005)
+                sphere.name = "centerPosition"
+                self.removeNode(named: "centerPosition")
+                sphere.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+                Service.addChildNode(sphere, toNode: self.arView.scene.rootNode, inView: self.arView, cameraRelativePosition: self.cameraRelativePosition)
+            }
         }
+        
     }
 }
 

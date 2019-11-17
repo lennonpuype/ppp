@@ -113,7 +113,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="wub-ZM-VqW">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dot" translatesAutoresizingMaskIntoConstraints="NO" id="wub-ZM-VqW">
                                 <rect key="frame" x="200" y="446" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="Hp9-wc-Npj"/>
@@ -150,6 +150,7 @@
                     </view>
                     <connections>
                         <outlet property="arView" destination="mQL-mD-lZh" id="LNQ-8k-3Yg"/>
+                        <outlet property="buttonOutlet" destination="tMW-CC-A0F" id="U0Z-8I-cwI"/>
                         <outlet property="distanceLabel" destination="MJf-Wk-3pr" id="wZn-5b-fat"/>
                         <outlet property="xLabel" destination="UaI-Hx-TGo" id="0tN-mJ-teA"/>
                         <outlet property="yLabel" destination="e5s-ZS-s8J" id="j8T-fo-eHj"/>
