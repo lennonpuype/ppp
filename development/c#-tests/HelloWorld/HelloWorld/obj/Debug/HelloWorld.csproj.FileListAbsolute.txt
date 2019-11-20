@@ -1,5 +1,4 @@
 /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/HelloWorld/HelloWorld/bin/Debug/HelloWorld.exe
 /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/HelloWorld/HelloWorld/bin/Debug/HelloWorld.pdb
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/HelloWorld/HelloWorld/obj/Debug/HelloWorld.csprojAssemblyReference.cache
 /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/HelloWorld/HelloWorld/obj/Debug/HelloWorld.exe
 /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/HelloWorld/HelloWorld/obj/Debug/HelloWorld.pdb

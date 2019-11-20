@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{0EB8C072-0656-49B6-8793-F4C6F522A7C7}|Default">
-  <MonoDevelop.Ide.ItemProperties.HelloWorld FirstBuild="True" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.HelloWorld PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="HelloWorld/Program.cs">
     <Files>
-      <File FileName="HelloWorld/Program.cs" Line="12" Column="46" />
+      <File FileName="HelloWorld/Program.cs" Line="14" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,6 +14,9 @@
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
