@@ -367,14 +367,14 @@ static const int32_t s_InvokerIndices[96] =
 	14,
 	14,
 	209,
-	1318,
+	1478,
 	0,
 	1,
-	1319,
+	1479,
 	567,
 	0,
 	201,
-	1067,
+	1070,
 	111,
 	94,
 	3,
@@ -408,7 +408,7 @@ static const int32_t s_InvokerIndices[96] =
 	23,
 	23,
 	26,
-	1320,
+	1480,
 };
 extern const Il2CppCodeGenModule g_UnityEngine_UnityWebRequestModuleCodeGenModule;
 const Il2CppCodeGenModule g_UnityEngine_UnityWebRequestModuleCodeGenModule = 

@@ -6,7 +6,9 @@
             "fullManagedTypeName": "UnityEngine.Material",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -15,7 +17,9 @@
             "fullManagedTypeName": "UnityEngine.Object",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -24,7 +28,9 @@
             "fullManagedTypeName": "UnityEditor.MonoScript",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -33,7 +39,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -84,7 +92,9 @@
             "fullManagedTypeName": "UnityEngine.Shader",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -93,7 +103,9 @@
             "fullManagedTypeName": "UnityEngine.TextAsset",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -102,7 +114,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -146,7 +160,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -218,7 +234,9 @@
             "fullManagedTypeName": "UnityEngine.AudioBehaviour",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -227,7 +245,9 @@
             "fullManagedTypeName": "UnityEngine.AudioListener",
             "moduleName": "Audio",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -245,7 +265,9 @@
             "fullManagedTypeName": "UnityEngine.Behaviour",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -254,7 +276,9 @@
             "fullManagedTypeName": "UnityEngine.Component",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -263,7 +287,9 @@
             "fullManagedTypeName": "UnityEngine.GameObject",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -272,7 +298,9 @@
             "fullManagedTypeName": "UnityEngine.Sprite",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -281,7 +309,9 @@
             "fullManagedTypeName": "UnityEngine.Texture2D",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -290,7 +320,9 @@
             "fullManagedTypeName": "UnityEngine.Texture",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -299,7 +331,9 @@
             "fullManagedTypeName": "UnityEngine.Transform",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -308,7 +342,9 @@
             "fullManagedTypeName": "UnityEngine.RectTransform",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -317,7 +353,9 @@
             "fullManagedTypeName": "UnityEngine.Canvas",
             "moduleName": "UI",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -326,7 +364,9 @@
             "fullManagedTypeName": "UnityEngine.CanvasRenderer",
             "moduleName": "UI",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -353,7 +393,9 @@
             "fullManagedTypeName": "UnityEngine.MonoBehaviour",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -371,7 +413,9 @@
             "fullManagedTypeName": "UnityEngine.Camera",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -389,7 +433,9 @@
             "fullManagedTypeName": "UnityEngine.Font",
             "moduleName": "TextRendering",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -398,7 +444,9 @@
             "fullManagedTypeName": "UnityEngine.Light",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -407,7 +455,9 @@
             "fullManagedTypeName": "UnityEngine.LightmapSettings",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -425,7 +475,9 @@
             "fullManagedTypeName": "",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -443,7 +495,9 @@
             "fullManagedTypeName": "UnityEngine.RenderSettings",
             "moduleName": "Core",
             "usedInScenes": [
-                "Assets/Scenes/SampleScene.unity"
+                "Assets/Scenes/SampleScene.unity",
+                "Assets/Scenes/GameScene.unity",
+                "Assets/Scenes/JoinScene.unity"
             ]
         },
         {
@@ -472,6 +526,20 @@
             "usedInScenes": [
                 "Assets/Scenes/SampleScene.unity"
             ]
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "NameTransfer",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "SceneSwitch",
+            "moduleName": "",
+            "usedInScenes": []
         },
         {
             "managedAssemblyName": "UnityEngine.UI.dll",
@@ -512,6 +580,13 @@
             "managedAssemblyName": "UnityEngine.UI.dll",
             "nativeClass": "",
             "fullManagedTypeName": "UnityEngine.UI.Image",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "UnityEngine.UI.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "UnityEngine.UI.InputField",
             "moduleName": "",
             "usedInScenes": []
         },
