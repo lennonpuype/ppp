@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - MyLobby
     - NameTransfer
     - SceneSwitch
     Unity.2D.Tilemap.Editor.dll:
@@ -25,6 +26,9 @@ ScriptsOnlyBuild:
     com.unity.multiplayer-hlapi.Runtime.dll:
     - UnityEngine.Networking.NetworkCallbacks
     - UnityEngine.Networking.NetworkIdentity
+    - UnityEngine.Networking.NetworkLobbyPlayer
+    - UnityEngine.Networking.NetworkManager
+    - UnityEngine.Networking.NetworkManagerHUD
   sceneClasses:
     Assets/Scenes/GameScene.unity:
     - Class: 1
@@ -79,6 +83,23 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
+    Assets/Scenes/GameScene2.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
     Assets/Scenes/JoinScene.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -114,6 +135,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11446}
     - Class: 114
       Script: {instanceID: 11892}
+    - Class: 114
+      Script: {instanceID: 14492}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -162,6 +185,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 9736}
     - Class: 114
+      Script: {instanceID: 9810}
+    - Class: 114
       Script: {instanceID: 9830}
     - Class: 114
       Script: {instanceID: 9832}
@@ -180,6 +205,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 10500}
     - Class: 114
+      Script: {instanceID: 10756}
+    - Class: 114
       Script: {instanceID: 10832}
     - Class: 114
       Script: {instanceID: 10898}
@@ -190,7 +217,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11446}
     - Class: 114
+      Script: {instanceID: 11824}
+    - Class: 114
       Script: {instanceID: 11892}
+    - Class: 114
+      Script: {instanceID: 14492}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -770,9 +801,16 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 265cf27ba050d55ff33a8acab4ded6c0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MyLobby
   platform: 9
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
   - Assets/Scenes/GameScene.unity
   - Assets/Scenes/JoinScene.unity
-  playerPath: /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/unity-app-test/unity-app-test/Build/iOS_Input
+  - Assets/Scenes/GameScene2.unity
+  playerPath: /Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/unity-app-test/unity-app-test/Build/iOS_Multiplayer

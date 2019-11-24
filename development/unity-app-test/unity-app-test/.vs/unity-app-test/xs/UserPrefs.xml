@@ -1,17 +1,25 @@
 ﻿<Properties StartupConfiguration="{6C9BB49E-7ED4-2AA8-68C6-980240F786EB}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/NameTransfer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/HostGame.cs">
     <Files>
       <File FileName="Assets/SceneSwitch.cs" Line="15" Column="12" />
-      <File FileName="Assets/NameTransfer.cs" Line="15" Column="68" />
+      <File FileName="Assets/NameTransfer.cs" />
+      <File FileName="Assets/MyLobby.cs" />
+      <File FileName="Assets/PhotonConnect.cs" Line="47" Column="12" />
+      <File FileName="Assets/HostGame.cs" Line="1" Column="6" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="unity-app-test" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="NameTransfer.cs" selected="True" />
+              <Node name="HostGame.cs" selected="True" />
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="unity-app-test" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
