@@ -1,5 +1,0 @@
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/TestProject/TestProject/TestProject/bin/Debug/TestProject.exe
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/TestProject/TestProject/TestProject/bin/Debug/TestProject.pdb
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/TestProject/TestProject/TestProject/obj/Debug/TestProject.csprojAssemblyReference.cache
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/TestProject/TestProject/TestProject/obj/Debug/TestProject.exe
-/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/c#-tests/TestProject/TestProject/TestProject/obj/Debug/TestProject.pdb
