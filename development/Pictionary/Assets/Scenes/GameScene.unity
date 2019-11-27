@@ -447,6 +447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1841241162}
   - component: {fileID: 1841241161}
+  - component: {fileID: 1841241163}
   m_Layer: 0
   m_Name: Interaction
   m_TagString: Untagged
@@ -466,8 +467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2e7c22494424549bed4b3f481585dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPlace: {fileID: 0}
-  placementIndicator: {fileID: 0}
+  objectToPlace: {fileID: 508961879638566353, guid: 7b3f5b59713e44f628d00ecddca8876d,
+    type: 3}
+  placementIndicator: {fileID: 155498445}
+  cubePosition: {x: 0, y: 0, z: 0}
 --- !u!4 &1841241162
 Transform:
   m_ObjectHideFlags: 0
@@ -482,49 +485,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1887655796
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1887655798}
-  - component: {fileID: 1887655797}
-  m_Layer: 0
-  m_Name: NetworkCallbacks
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1887655797
+--- !u!114 &1841241163
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887655796}
+  m_GameObject: {fileID: 1841241160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cc86f7a9da3842a7b76e72c6d56fd01, type: 3}
+  m_Script: {fileID: 11500000, guid: 94c1baa3332d04c6e8305cf91db02b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1887655798
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1887655796}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022523459
 GameObject:
   m_ObjectHideFlags: 0
@@ -616,8 +588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FocusMode: 1
-  m_LightEstimationMode: 0
 --- !u!114 &2022523463
 MonoBehaviour:
   m_ObjectHideFlags: 0

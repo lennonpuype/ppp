@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.Experimental.XR;
 using System;
 
-public class ARTapToPlaceObject : Bolt.EntityBehaviour<ICustomCubeState>
+public class ARTapToPlaceObject : MonoBehaviour
 {
     public GameObject objectToPlace;
     public GameObject placementIndicator;
@@ -14,41 +14,28 @@ public class ARTapToPlaceObject : Bolt.EntityBehaviour<ICustomCubeState>
     private Pose placementPose;
     private bool placementPoseIsValid = false;
 
-    private Vector3 cubePosition = Vector3.zero;
+    public Vector3 cubePosition = Vector3.zero;
 
-    public override void Attached()
-    {
-        state.SetTransforms(state.CubeTransform, gameObject.transform);
-
-    }
-
-    public override void SimulateOwner()
-    {
-
-    }
 
     void Start()
     {
         arOrigin = FindObjectOfType<ARSessionOrigin>();
     }
 
-    private void Update()
+    void Update()
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
 
-        //PlaceObject
         if (placementPoseIsValid && Input.touchCount > 0)
         {
-            PlaceObject();  
+            PlaceObject();
         }
     }
 
     private void PlaceObject()
     {
-        Debug.Log("Placed Object");
         Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-        Debug.Log(placementPose.position);
         cubePosition = placementPose.position;
     }
 
@@ -69,7 +56,7 @@ public class ARTapToPlaceObject : Bolt.EntityBehaviour<ICustomCubeState>
     {
         var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         var hits = new List<ARRaycastHit>();
-
+        
         arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
 
         placementPoseIsValid = hits.Count > 0;
@@ -82,6 +69,4 @@ public class ARTapToPlaceObject : Bolt.EntityBehaviour<ICustomCubeState>
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
-
-   
 }
