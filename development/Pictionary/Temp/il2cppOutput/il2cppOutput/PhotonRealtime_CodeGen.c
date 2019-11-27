@@ -1887,9 +1887,9 @@ static const Il2CppTokenRangePair s_rgctxIndices[1] =
 };
 static const Il2CppRGCTXDefinition s_rgctxValues[3] = 
 {
-	{ (Il2CppRGCTXDataType)3, 28788 },
-	{ (Il2CppRGCTXDataType)3, 28789 },
-	{ (Il2CppRGCTXDataType)2, 32754 },
+	{ (Il2CppRGCTXDataType)3, 28793 },
+	{ (Il2CppRGCTXDataType)3, 28794 },
+	{ (Il2CppRGCTXDataType)2, 32776 },
 };
 extern const Il2CppCodeGenModule g_PhotonRealtimeCodeGenModule;
 const Il2CppCodeGenModule g_PhotonRealtimeCodeGenModule = 

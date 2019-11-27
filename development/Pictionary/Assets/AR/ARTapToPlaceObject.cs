@@ -5,7 +5,7 @@ using UnityEngine.XR.ARFoundation;
 using UnityEngine.Experimental.XR;
 using System;
 
-public class ARTapToPlaceObject : MonoBehaviour
+public class ARTapToPlaceObject : Bolt.EntityBehaviour<ICustomCubeState>
 {
     public GameObject objectToPlace;
     public GameObject placementIndicator;
@@ -14,30 +14,42 @@ public class ARTapToPlaceObject : MonoBehaviour
     private Pose placementPose;
     private bool placementPoseIsValid = false;
 
+    private Vector3 cubePosition = Vector3.zero;
+
+    public override void Attached()
+    {
+        state.SetTransforms(state.CubeTransform, gameObject.transform);
+
+    }
+
+    public override void SimulateOwner()
+    {
+
+    }
+
     void Start()
     {
         arOrigin = FindObjectOfType<ARSessionOrigin>();
     }
 
-    void Update()
+    private void Update()
     {
         UpdatePlacementPose();
         UpdatePlacementIndicator();
 
-        // if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        // {
-        //     PlaceObject();
-        // }
-
+        //PlaceObject
         if (placementPoseIsValid && Input.touchCount > 0)
         {
-            PlaceObject();
+            PlaceObject();  
         }
     }
 
     private void PlaceObject()
     {
+        Debug.Log("Placed Object");
         Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+        Debug.Log(placementPose.position);
+        cubePosition = placementPose.position;
     }
 
     private void UpdatePlacementIndicator()
@@ -57,7 +69,7 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         var hits = new List<ARRaycastHit>();
-        
+
         arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
 
         placementPoseIsValid = hits.Count > 0;
@@ -70,4 +82,6 @@ public class ARTapToPlaceObject : MonoBehaviour
             placementPose.rotation = Quaternion.LookRotation(cameraBearing);
         }
     }
+
+   
 }

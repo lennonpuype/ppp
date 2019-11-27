@@ -350,7 +350,7 @@ struct Entity_tD99F1382B075468B151E2A0879BC429EE0726AF7;
 // Bolt.EntityBehaviour
 struct EntityBehaviour_t3F2D30BA6F2D91D21F9B53517D1244986B352597;
 // Bolt.EntityBehaviour`1<System.Object>
-struct EntityBehaviour_1_t2F713A94137F0FA6FB820FD03E2F2301A064559F;
+struct EntityBehaviour_1_tCD7E11ADC1EEF8B4FBAF10EA974423ABB6041FD7;
 // Bolt.EntityEventListener`1<System.Object>
 struct EntityEventListener_1_t5E030260AFB08C32439454F3247C36FD591CEE3E;
 // Bolt.Event
@@ -15613,7 +15613,7 @@ public:
 
 
 // Bolt.EntityBehaviour`1<System.Object>
-struct  EntityBehaviour_1_t2F713A94137F0FA6FB820FD03E2F2301A064559F  : public EntityBehaviour_t3F2D30BA6F2D91D21F9B53517D1244986B352597
+struct  EntityBehaviour_1_tCD7E11ADC1EEF8B4FBAF10EA974423ABB6041FD7  : public EntityBehaviour_t3F2D30BA6F2D91D21F9B53517D1244986B352597
 {
 public:
 
@@ -16917,7 +16917,7 @@ IL_0015:
 #pragma clang diagnostic ignored "-Wunused-variable"
 #endif
 // TState Bolt.EntityBehaviour`1<System.Object>::get_state()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject * EntityBehaviour_1_get_state_m112C2F8858B9B937C9BF60C8ECBD21CDD18A64EE_gshared (EntityBehaviour_1_t2F713A94137F0FA6FB820FD03E2F2301A064559F * __this, const RuntimeMethod* method)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR RuntimeObject * EntityBehaviour_1_get_state_mE75B4595ADF1456CCD6AD0FA51CBDE0A1AB55215_gshared (EntityBehaviour_1_tCD7E11ADC1EEF8B4FBAF10EA974423ABB6041FD7 * __this, const RuntimeMethod* method)
 {
 	RuntimeObject * V_0 = NULL;
 	{
@@ -16936,7 +16936,7 @@ IL_000f:
 	}
 }
 // System.Void Bolt.EntityBehaviour`1<System.Object>::.ctor()
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void EntityBehaviour_1__ctor_m29FEF8874C89390C28D7F6A4DCC6883CB720712D_gshared (EntityBehaviour_1_t2F713A94137F0FA6FB820FD03E2F2301A064559F * __this, const RuntimeMethod* method)
+IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void EntityBehaviour_1__ctor_mF2AC8C3185E0362A78225A66FBB5256D84927284_gshared (EntityBehaviour_1_tCD7E11ADC1EEF8B4FBAF10EA974423ABB6041FD7 * __this, const RuntimeMethod* method)
 {
 	{
 		NullCheck((EntityBehaviour_t3F2D30BA6F2D91D21F9B53517D1244986B352597 *)__this);

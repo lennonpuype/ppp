@@ -390,32 +390,32 @@ RegisterBuiltinTypes();
 	RegisterUnityClass<Sprite>("Core");
 	//36. SpriteAtlas
 	RegisterUnityClass<SpriteAtlas>("Core");
-	//37. Rigidbody
-	RegisterUnityClass<Rigidbody>("Physics");
-	//38. Collider
-	RegisterUnityClass<Collider>("Physics");
-	//39. CharacterController
-	RegisterUnityClass<CharacterController>("Physics");
-	//40. MeshCollider
-	RegisterUnityClass<MeshCollider>("Physics");
-	//41. ParticleSystem
-	RegisterUnityClass<ParticleSystem>("ParticleSystem");
-	//42. ParticleSystemRenderer
-	RegisterUnityClass<ParticleSystemRenderer>("ParticleSystem");
-	//43. AnimationClip
+	//37. AnimationClip
 	RegisterUnityClass<AnimationClip>("Animation");
-	//44. Motion
+	//38. Motion
 	RegisterUnityClass<Motion>("Animation");
-	//45. Animator
+	//39. Animator
 	RegisterUnityClass<Animator>("Animation");
-	//46. AnimatorOverrideController
+	//40. AnimatorOverrideController
 	RegisterUnityClass<AnimatorOverrideController>("Animation");
-	//47. RuntimeAnimatorController
+	//41. RuntimeAnimatorController
 	RegisterUnityClass<RuntimeAnimatorController>("Animation");
-	//48. AudioClip
+	//42. AudioClip
 	RegisterUnityClass<AudioClip>("Audio");
-	//49. SampleClip
+	//43. SampleClip
 	RegisterUnityClass<SampleClip>("Audio");
+	//44. ParticleSystem
+	RegisterUnityClass<ParticleSystem>("ParticleSystem");
+	//45. ParticleSystemRenderer
+	RegisterUnityClass<ParticleSystemRenderer>("ParticleSystem");
+	//46. Rigidbody
+	RegisterUnityClass<Rigidbody>("Physics");
+	//47. Collider
+	RegisterUnityClass<Collider>("Physics");
+	//48. CharacterController
+	RegisterUnityClass<CharacterController>("Physics");
+	//49. MeshCollider
+	RegisterUnityClass<MeshCollider>("Physics");
 	//50. Rigidbody2D
 	RegisterUnityClass<Rigidbody2D>("Physics2D");
 	//51. TextRendering::Font

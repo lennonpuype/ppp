@@ -48,6 +48,7 @@
 	<assembly fullname="Assembly-CSharp">
 		<type fullname="ARTapToPlaceObject" preserve="nothing"/>
 		<type fullname="Menu" preserve="nothing"/>
+		<type fullname="NetworkCallbacks" preserve="nothing"/>
 	</assembly>
 	<assembly fullname="Unity.XR.ARFoundation">
 		<type fullname="UnityEngine.XR.ARFoundation.ARCameraBackground" preserve="nothing"/>

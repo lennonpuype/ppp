@@ -1345,13 +1345,13 @@ static const Il2CppTokenRangePair s_rgctxIndices[2] =
 };
 static const Il2CppRGCTXDefinition s_rgctxValues[7] = 
 {
-	{ (Il2CppRGCTXDataType)1, 36824 },
-	{ (Il2CppRGCTXDataType)3, 28895 },
-	{ (Il2CppRGCTXDataType)3, 28896 },
-	{ (Il2CppRGCTXDataType)3, 28897 },
-	{ (Il2CppRGCTXDataType)3, 28898 },
-	{ (Il2CppRGCTXDataType)2, 36825 },
-	{ (Il2CppRGCTXDataType)3, 28899 },
+	{ (Il2CppRGCTXDataType)1, 36856 },
+	{ (Il2CppRGCTXDataType)3, 28900 },
+	{ (Il2CppRGCTXDataType)3, 28901 },
+	{ (Il2CppRGCTXDataType)3, 28902 },
+	{ (Il2CppRGCTXDataType)3, 28903 },
+	{ (Il2CppRGCTXDataType)2, 36857 },
+	{ (Il2CppRGCTXDataType)3, 28904 },
 };
 extern const Il2CppCodeGenModule g_udpkit_platform_photonCodeGenModule;
 const Il2CppCodeGenModule g_udpkit_platform_photonCodeGenModule = 

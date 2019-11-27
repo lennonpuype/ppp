@@ -479,8 +479,7 @@
             "fullManagedTypeName": "UnityEngine.BoxCollider",
             "moduleName": "Physics",
             "usedInScenes": [
-                "Assets/Scenes/StartScene.unity",
-                "Assets/Scenes/GameScene.unity"
+                "Assets/Scenes/StartScene.unity"
             ]
         },
         {
@@ -503,6 +502,13 @@
             "managedAssemblyName": "Assembly-CSharp.dll",
             "nativeClass": "",
             "fullManagedTypeName": "Menu",
+            "moduleName": "",
+            "usedInScenes": []
+        },
+        {
+            "managedAssemblyName": "Assembly-CSharp.dll",
+            "nativeClass": "",
+            "fullManagedTypeName": "NetworkCallbacks",
             "moduleName": "",
             "usedInScenes": []
         },
