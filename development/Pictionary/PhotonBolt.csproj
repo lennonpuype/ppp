@@ -84,11 +84,11 @@
     <None Include="Assets\Photon\PhotonBolt\assemblies\editor\protobuf-net.LICENSE.txt" />
     <None Include="Assets\Photon\PhotonBolt\assemblies\editor\bolt.compiler.xml" />
     <None Include="Assets\Photon\PhotonBolt\bolt_sdk.txt" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/Pictionary/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/Pictionary/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Users/Lennon/Desktop/School/2019-2020/Dev/Personal Passion Project/github/development/Pictionary/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

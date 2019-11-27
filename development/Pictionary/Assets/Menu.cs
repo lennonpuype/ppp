@@ -4,6 +4,7 @@ using System;
 using UnityEngine.SceneManagement;
 using UdpKit;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [BoltGlobalBehaviour]
 public class Menu : Bolt.GlobalEventListener
@@ -27,6 +28,31 @@ public class Menu : Bolt.GlobalEventListener
             BoltNetwork.SetServerInfo(matchName, null);
             BoltNetwork.LoadScene("GameScene");
         }
+    }
+
+    public void openCreator()
+    {
+        SceneManager.LoadScene("CreatorScene");
+    }
+
+    public void openHostName()
+    {
+        SceneManager.LoadScene("HostNameScene");
+    }
+
+    public void openPlayerName()
+    {
+        SceneManager.LoadScene("PlayerNameScene");
+    }
+
+    public void openFinder()
+    {
+        SceneManager.LoadScene("FindGameScene");
+    }
+
+    public void openMenu()
+    {
+        SceneManager.LoadScene("StartScene");
     }
 
     public override void SessionListUpdated(Map<Guid, UdpSession> sessionList)
