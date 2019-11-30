@@ -17,56 +17,56 @@ public class ARTapToPlaceObject : MonoBehaviour
     public Vector3 cubePosition = Vector3.zero;
 
 
-    void Start()
-    {
-        arOrigin = FindObjectOfType<ARSessionOrigin>();
-    }
+    //void Start()
+    //{
+    //    arOrigin = FindObjectOfType<ARSessionOrigin>();
+    //}
 
-    void Update()
-    {
-        UpdatePlacementPose();
-        UpdatePlacementIndicator();
+    //void Update()
+    //{
+    //    UpdatePlacementPose();
+    //    UpdatePlacementIndicator();
 
-        if (placementPoseIsValid && Input.touchCount > 0)
-        {
-            PlaceObject();
-        }
-    }
+    //    if (placementPoseIsValid && Input.touchCount > 0)
+    //    {
+    //        PlaceObject();
+    //    }
+    //}
 
-    private void PlaceObject()
-    {
-        Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
-        cubePosition = placementPose.position;
-    }
+    //private void PlaceObject()
+    //{
+    //    Instantiate(objectToPlace, placementPose.position, placementPose.rotation);
+    //    cubePosition = placementPose.position;
+    //}
 
-    private void UpdatePlacementIndicator()
-    {
-        if (placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
-    }
+    //private void UpdatePlacementIndicator()
+    //{
+    //    if (placementPoseIsValid)
+    //    {
+    //        placementIndicator.SetActive(true);
+    //        placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
+    //    }
+    //    else
+    //    {
+    //        placementIndicator.SetActive(false);
+    //    }
+    //}
 
-    private void UpdatePlacementPose()
-    {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        
-        arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
+    //private void UpdatePlacementPose()
+    //{
+    //    var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+    //    var hits = new List<ARRaycastHit>();
 
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
+    //    arOrigin.Raycast(screenCenter, hits, TrackableType.Planes);
 
-            var cameraForward = Camera.current.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            placementPose.rotation = Quaternion.LookRotation(cameraBearing);
-        }
-    }
+    //    placementPoseIsValid = hits.Count > 0;
+    //    if (placementPoseIsValid)
+    //    {
+    //        placementPose = hits[0].pose;
+
+    //        var cameraForward = Camera.current.transform.forward;
+    //        var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+    //        placementPose.rotation = Quaternion.LookRotation(cameraBearing);
+    //    }
+    //}
 }

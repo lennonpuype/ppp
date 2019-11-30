@@ -65,8 +65,12 @@
   <ItemGroup>
     <Compile Include="Assets\AR\ARTapToPlaceObject.cs" />
     <Compile Include="Assets\AR\ObjectToBolt.cs" />
+    <Compile Include="Assets\HostManager.cs" />
     <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\NetworkCallbacks.cs" />
+    <Compile Include="Assets\NewBehaviourScript.cs" />
+    <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\PlayerScore.cs" />
     <None Include="Assets\link.xml" />
     <None Include="Assets\Photon\PhotonLibs\Photon3Unity3D.xml" />
     <None Include="Assets\Photon\PhotonLibs\changes-library.txt" />
@@ -688,6 +692,7 @@
     <Reference Include="mscorlib">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
+    <Compile Include="Assets\PlayerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonBolt.csproj">

@@ -521,6 +521,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e171a3a9912ee4f0f8b988f6be24e26f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joinGameButtonPrefab: {fileID: 825911690}
+  createbtns: {fileID: 1794305016}
 --- !u!114 &690097292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -934,7 +936,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 690097291}
-        m_MethodName: StartServer
+        m_MethodName: StartClient
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
