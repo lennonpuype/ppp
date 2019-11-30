@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO; 
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +8,7 @@ public class PlayerManager : MonoBehaviour
 {
     public GameObject drawerBottomField;
     public GameObject guesserBottomField;
+    public Text wordSpace;
 
     public GameObject hostLeaveButtton;
     public GameObject playerLeaveButtton;
@@ -17,6 +20,10 @@ public class PlayerManager : MonoBehaviour
     public Text playerAmountText;
     public Text scoreText;
 
+    private WordCollection wordCollection;
+
+    [SerializeField]
+    private string wordPath;
     private int playerAmount = 0;
 
     void Start()
@@ -28,7 +35,7 @@ public class PlayerManager : MonoBehaviour
         players.Add(player);
         players.Add(player2);
 
-        var activePlayer = player;
+        var activePlayer = player2;
 
         for (int i = 0; i < players.Count; i++)
         {
@@ -42,8 +49,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         scoreText.text = activePlayer.score.ToString();
-
-        
+        var randomWord = loadRandomWord();
 
         if (activePlayer.rights == "host")
         {
@@ -58,6 +64,7 @@ public class PlayerManager : MonoBehaviour
         if (activePlayer.type == "drawer")
         {
             drawerBottomField.gameObject.SetActive(true);
+            wordSpace.text = "Draw a " + randomWord;
             drawerInfo.text = "It is your turn!";
         }
         else
@@ -75,10 +82,25 @@ public class PlayerManager : MonoBehaviour
             playerAmountText.text = "There are " + playerAmount + " players in the game";
         }
 
-        /*
-        if(guessRight){
-            player.score+=50;
+       
+    }
+
+     
+   
+
+    [ContextMenu("Load Questions")]
+    private string loadRandomWord()
+    {
+        using (StreamReader stream = new StreamReader(wordPath))
+        {
+            string json = stream.ReadToEnd();
+            wordCollection = JsonUtility.FromJson<WordCollection>(json);
         }
-         */
+
+        System.Random random = new System.Random();
+        var randomNumber = random.Next(wordCollection.words.Length);
+
+        
+        return wordCollection.words[randomNumber].word;
     }
 }

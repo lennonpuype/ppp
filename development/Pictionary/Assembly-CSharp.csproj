@@ -693,6 +693,8 @@
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
     </Reference>
     <Compile Include="Assets\PlayerManager.cs" />
+    <Compile Include="Assets\WordCollection.cs" />
+    <Compile Include="Assets\Word.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="PhotonBolt.csproj">
