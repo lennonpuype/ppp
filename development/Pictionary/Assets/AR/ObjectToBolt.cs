@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 
-public class ObjectToBolt : Bolt.EntityBehaviour<ICustomCubeState>
+public class ObjectToBolt : Bolt.EntityBehaviour
 {
 	//Nodig om te communiceren tussen data uit SimulateOwner Method en de State data
-	public override void Attached()
-	{
-		state.SetTransforms(state.CubeTransform, gameObject.transform);
-	}
+	//public override void Attached()
+	//{
+	//	state.SetTransforms(state.CubeTransform, gameObject.transform);
+	//}
 
-	//Update
-	public override void SimulateOwner()
-	{
-        ARTapToPlaceObject ARObject = new ARTapToPlaceObject();
-        var cubePosition = ARObject.cubePosition;
+	////Update
+	//public override void SimulateOwner()
+	//{
+ //       ARTapToPlaceObject ARObject = new ARTapToPlaceObject();
+ //       var cubePosition = ARObject.cubePosition;
 
-        Debug.Log(cubePosition);
-    }
+ //       Debug.Log(cubePosition);
+ //   }
 }

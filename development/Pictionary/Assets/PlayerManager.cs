@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : Bolt.EntityBehaviour<ICustomPlayerState>
 {
     public GameObject drawerBottomField;
     public GameObject guesserBottomField;
@@ -20,57 +20,76 @@ public class PlayerManager : MonoBehaviour
     public Text playerAmountText;
     public Text scoreText;
 
+    public GameObject pointer;
+
     private WordCollection wordCollection;
 
     [SerializeField]
     private string wordPath;
     private int playerAmount = 0;
+    private Color gold = new Color32(184, 139, 86, 255);
+
+    public override void Attached()
+    {
+        state.Name = "Mimi";
+        state.Points = 0;
+        state.Rights = "host";
+        state.Type = "guesser";
+    }
 
     void Start()
     {
-        var players = new List<Player>();
+        //var players = new List<Player>();
 
-        Player player = new Player("Lennon", 0, "host", "guesser");
-        Player player2 = new Player("Guest", 200, "player", "drawer");
-        players.Add(player);
-        players.Add(player2);
+        //Player player = new Player("Lennon", 0, "host", "guesser");
+        //Player player2 = new Player("Guest", 200, "player", "drawer");
+        //players.Add(player);
+        //players.Add(player2);
 
-        var activePlayer = player2;
+        //var activePlayer = player;
 
-        for (int i = 0; i < players.Count; i++)
-        {
-            Text participantClone = Instantiate(participant);
-            participantClone.transform.parent = participantList.transform;
-            participantClone.transform.localPosition = new Vector3(0, 0, 0);
-            participantClone.gameObject.SetActive(true);
-            participantClone.text = players[i].name + ": " + players[i].score;
+        //for (int i = 0; i < players.Count; i++)
+        //{
+        //    Text participantClone = BoltNetwork.Instantiate(BoltPrefabs.);
+        //    participantClone.transform.parent = participantList.transform;
+        //    participantClone.transform.localPosition = new Vector3(0, 0, 0);
+        //    participantClone.gameObject.SetActive(true);
+        //    participantClone.text = players[i].name + ": " + players[i].score;
 
-            playerAmount = players.Count;
-        }
+        //    playerAmount = players.Count;
 
-        scoreText.text = activePlayer.score.ToString();
+        //    if (players[i].rights == "host")
+        //    {
+        //        participantClone.color = gold;
+        //        participantClone.fontSize = 40;
+        //    }
+        //}
+        
+        scoreText.text = state.Points.ToString();
         var randomWord = loadRandomWord();
+        Debug.Log(randomWord);
 
-        if (activePlayer.rights == "host")
+        if (state.Rights == "host")
         {
             hostLeaveButtton.gameObject.SetActive(true);
         }
-        else if (activePlayer.rights == "player")
+        else if (state.Rights == "player")
         {
 
             playerLeaveButtton.gameObject.SetActive(true);
         }
 
-        if (activePlayer.type == "drawer")
+        if (state.Type == "drawer")
         {
             drawerBottomField.gameObject.SetActive(true);
             wordSpace.text = "Draw a " + randomWord;
             drawerInfo.text = "It is your turn!";
+            pointer.gameObject.SetActive(true);
         }
         else
         {
             guesserBottomField.gameObject.SetActive(true);
-            drawerInfo.text = "It is " + activePlayer.name + "'s turn to draw!";
+            drawerInfo.text = "It is " + state.Name + "'s turn to draw!";
         }
 
         if (playerAmount == 1)

@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7731796513348798926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 592770249956104335}
+  - component: {fileID: 6562724130884469830}
+  - component: {fileID: 4842961047902389856}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &592770249956104335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731796513348798926}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -285.90894, y: 895.10223, z: -2856.0898}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6562724130884469830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731796513348798926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -36112512, guid: 5b00bf8b25851d440940a40ec23344f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sceneGuid: 
+  _serializerGuid: 66640cad-15e0-46ea-a6c8-96d1fa747a8b
+  _prefabId: 2
+  _updateRate: 1
+  _autoFreezeProxyFrames: 0
+  _clientPredicted: 1
+  _allowInstantiateOnClient: 1
+  _persistThroughSceneLoads: 0
+  _sceneObjectDestroyOnDetach: 1
+  _sceneObjectAutoAttach: 1
+  _alwaysProxy: 0
+  _detachOnDisable: 1
+  _allowFirstReplicationWhenFrozen: 0
+  _autoRemoveChildEntities: 0
+  _entityBehaviourQueryOption: 0
+  _entityPriorityCalculatorQueryOption: 0
+  _entityReplicationFilterQueryOption: 0
+--- !u!114 &4842961047902389856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731796513348798926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ffa97ff67e94840a42db92144e187c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawerBottomField: {fileID: 7147757587452490600, guid: b6a9725ac5f6d4b4d8efb63908542b86,
+    type: 3}
+  guesserBottomField: {fileID: 9059534102330636896, guid: 4ce2e06f025c4495c82cae00c0fa9bb1,
+    type: 3}
+  wordSpace: {fileID: 144583731743839194, guid: 43d024d6804014e73b5a1a9d9366009a,
+    type: 3}
+  hostLeaveButtton: {fileID: 207068271481512876, guid: c81805f9b140849939853db62ef1f6bf,
+    type: 3}
+  playerLeaveButtton: {fileID: 7588760748535374685, guid: 20c82cef7124548b2a8d0cbc615de4ed,
+    type: 3}
+  participantList: {fileID: 0}
+  participant: {fileID: 0}
+  drawerInfo: {fileID: 6118893118308039652, guid: 02620af9c41724618ba3d8c311d512c0,
+    type: 3}
+  playerAmountText: {fileID: 5703830848432343231, guid: 556c6a755bd0c4294b3b706063b54f2f,
+    type: 3}
+  scoreText: {fileID: 8443806515538125299, guid: 65b5b40ffe145471b9c3b16f2c4c44a8,
+    type: 3}
+  pointer: {fileID: 5982273766280762712, guid: 2074bb3c878ca40afa4f8c9261f477b2, type: 3}
+  wordPath: ./Assets/words.json
