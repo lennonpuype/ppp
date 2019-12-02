@@ -13,6 +13,9 @@ public class PlayerManager : Bolt.EntityBehaviour<ICustomPlayerState>
     public GameObject hostLeaveButtton;
     public GameObject playerLeaveButtton;
 
+    public GameObject GameScene;
+    public GameObject NameScene;
+
     public GameObject participantList;
     public Text participant;
 
@@ -20,69 +23,78 @@ public class PlayerManager : Bolt.EntityBehaviour<ICustomPlayerState>
     public Text playerAmountText;
     public Text scoreText;
 
+    public Text guess;
+    public Text goalText;
+
+    public Text playerName;
+
     public GameObject pointer;
 
     private WordCollection wordCollection;
 
+    private string randomWord = "";
+
     [SerializeField]
     private string wordPath;
+
+
     private int playerAmount = 0;
     private Color gold = new Color32(184, 139, 86, 255);
 
+    private string nameOfPlayer = "None";
+
     public override void Attached()
     {
+        
         state.Name = "Mimi";
         state.Points = 0;
-        state.Rights = "host";
+        if (BoltNetwork.IsServer)
+        {
+            state.Rights = "host";
+        }
+        else
+        {
+            state.Rights = "player";
+        }
+        
         state.Type = "guesser";
+
+        state.AddCallback("Name", nameCallback);
+
+        goalText.text = "Score "+ PlayerPrefs.GetInt("GameGoal") +" points to win the game";
     }
 
-    void Start()
+    public void nameCallback()
     {
-        //var players = new List<Player>();
+        nameOfPlayer = state.Name;
+        PlayerPrefs.SetString("NewPlayerName", nameOfPlayer);
+    }
 
-        //Player player = new Player("Lennon", 0, "host", "guesser");
-        //Player player2 = new Player("Guest", 200, "player", "drawer");
-        //players.Add(player);
-        //players.Add(player2);
+    public override void SimulateOwner()
+    {
+        var playerNameStatic = PlayerPrefs.GetString("PlayerName");
+        state.Name = playerNameStatic;
+        GameScene.gameObject.SetActive(true);
+        NameScene.gameObject.SetActive(false);
 
-        //var activePlayer = player;
-
-        //for (int i = 0; i < players.Count; i++)
-        //{
-        //    Text participantClone = BoltNetwork.Instantiate(BoltPrefabs.);
-        //    participantClone.transform.parent = participantList.transform;
-        //    participantClone.transform.localPosition = new Vector3(0, 0, 0);
-        //    participantClone.gameObject.SetActive(true);
-        //    participantClone.text = players[i].name + ": " + players[i].score;
-
-        //    playerAmount = players.Count;
-
-        //    if (players[i].rights == "host")
-        //    {
-        //        participantClone.color = gold;
-        //        participantClone.fontSize = 40;
-        //    }
-        //}
-        
         scoreText.text = state.Points.ToString();
-        var randomWord = loadRandomWord();
-        Debug.Log(randomWord);
+
 
         if (state.Rights == "host")
         {
             hostLeaveButtton.gameObject.SetActive(true);
+            playerLeaveButtton.gameObject.SetActive(false);
         }
         else if (state.Rights == "player")
         {
-
+            hostLeaveButtton.gameObject.SetActive(false);
             playerLeaveButtton.gameObject.SetActive(true);
         }
 
         if (state.Type == "drawer")
         {
             drawerBottomField.gameObject.SetActive(true);
-            wordSpace.text = "Draw a " + randomWord;
+            //wordSpace.text = "Draw a " + randomWord;
             drawerInfo.text = "It is your turn!";
             pointer.gameObject.SetActive(true);
         }
@@ -101,13 +113,29 @@ public class PlayerManager : Bolt.EntityBehaviour<ICustomPlayerState>
             playerAmountText.text = "There are " + playerAmount + " players in the game";
         }
 
-       
+
+
+        if (string.IsNullOrEmpty(guess.text))
+        {
+            Debug.Log("Please fill in something");
+        }
+        else
+        {
+            if (guess.text == state.Guess)
+            {
+                randomWord = loadRandomWord();
+                //Guesser +50 Points
+            }
+            else
+            {
+                //Change Drawer
+            }
+        }
+
+
     }
 
-     
-   
-
-    [ContextMenu("Load Questions")]
+    [ContextMenu("Load Words")]
     private string loadRandomWord()
     {
         using (StreamReader stream = new StreamReader(wordPath))
@@ -119,7 +147,7 @@ public class PlayerManager : Bolt.EntityBehaviour<ICustomPlayerState>
         System.Random random = new System.Random();
         var randomNumber = random.Next(wordCollection.words.Length);
 
-        
+
         return wordCollection.words[randomNumber].word;
     }
 }

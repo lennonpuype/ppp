@@ -46,16 +46,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 66640cad-15e0-46ea-a6c8-96d1fa747a8b
-  _prefabId: 2
+  _prefabId: 4
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
   _allowInstantiateOnClient: 1
   _persistThroughSceneLoads: 0
   _sceneObjectDestroyOnDetach: 1
-  _sceneObjectAutoAttach: 1
+  _sceneObjectAutoAttach: 0
   _alwaysProxy: 0
-  _detachOnDisable: 1
+  _detachOnDisable: 0
   _allowFirstReplicationWhenFrozen: 0
   _autoRemoveChildEntities: 0
   _entityBehaviourQueryOption: 0
@@ -83,13 +83,24 @@ MonoBehaviour:
     type: 3}
   playerLeaveButtton: {fileID: 7588760748535374685, guid: 20c82cef7124548b2a8d0cbc615de4ed,
     type: 3}
-  participantList: {fileID: 0}
-  participant: {fileID: 0}
+  GameScene: {fileID: 7266075973083146672, guid: df54c1353bf1240269b4cfa0e7d1cf99,
+    type: 3}
+  NameScene: {fileID: 6079792143047933254, guid: d643ee574924d4b1caa20bbb1eee1139,
+    type: 3}
+  participantList: {fileID: 5990757433263786575, guid: 160fcaad5d13442faa1eaffdbc107e7d,
+    type: 3}
+  participant: {fileID: 8261260368259648697, guid: aa883fd2bbbee49acb42b19d01b88750,
+    type: 3}
   drawerInfo: {fileID: 6118893118308039652, guid: 02620af9c41724618ba3d8c311d512c0,
     type: 3}
   playerAmountText: {fileID: 5703830848432343231, guid: 556c6a755bd0c4294b3b706063b54f2f,
     type: 3}
   scoreText: {fileID: 8443806515538125299, guid: 65b5b40ffe145471b9c3b16f2c4c44a8,
     type: 3}
+  guess: {fileID: 7111749143214282252, guid: 3b7c871de77c247f8ba391d859b72876, type: 3}
+  goalText: {fileID: 5753242433892862900, guid: 89f50bf386a184eeebad3aa67349b2c7,
+    type: 3}
+  playerName: {fileID: 3976652910099991985, guid: 6b48b8487ea1b408698f1ef59a960d85,
+    type: 3}
   pointer: {fileID: 5982273766280762712, guid: 2074bb3c878ca40afa4f8c9261f477b2, type: 3}
-  wordPath: ./Assets/words.json
+  wordPath: 

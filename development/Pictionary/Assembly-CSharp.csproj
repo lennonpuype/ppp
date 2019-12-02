@@ -65,6 +65,8 @@
   <ItemGroup>
     <Compile Include="Assets\AR\ARTapToPlaceObject.cs" />
     <Compile Include="Assets\AR\ObjectToBolt.cs" />
+    <Compile Include="Assets\GameFlow.cs" />
+    <Compile Include="Assets\GameSetup.cs" />
     <Compile Include="Assets\Menu.cs" />
     <Compile Include="Assets\NetworkCallbacks.cs" />
     <Compile Include="Assets\NewBehaviourScript.cs" />

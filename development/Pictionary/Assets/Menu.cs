@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UdpKit;
 using UnityEngine;
 using UnityEngine.UI;
+
 using Bolt.Matchmaking;
 using System.Collections.Generic;
 
@@ -11,6 +12,11 @@ public class Menu : Bolt.GlobalEventListener
     public Button joinGameButtonPrefab;
     public GameObject createbtns;
     public Text matchNameField;
+    public Text errormessage;
+    public GameObject errorMessageObject;
+    public Text gameName;
+    public GameObject loading;
+    public GameObject serverList;
 
     private List<Button> joinServerButtons = new List<Button>();
 
@@ -18,21 +24,46 @@ public class Menu : Bolt.GlobalEventListener
 
     public void StartServer()
     {
+        PlayerPrefs.SetString("PlayerName", matchNameField.text);
+
+        lobbyName = PlayerPrefs.GetString("PlayerName");
+
         BoltLauncher.StartServer();
+    }
+
+    public void checkForStartServer()
+    {
+        Debug.Log(matchNameField.text);
+        if (!string.IsNullOrEmpty(matchNameField.text))
+        {
+            Debug.Log("Validation Okay!");
+            StartServer();
+        }
+        else
+        {
+            Debug.Log("Please enter your name!");
+            errorMessageObject.gameObject.SetActive(true);
+            errormessage.text = "Please enter your name!";
+        }
     }
 
     public void StartClient()
     {
         BoltLauncher.StartClient();
+
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene.name == "GameScene")
+        {
+            loading.gameObject.SetActive(false);
+        }
     }
 
     public override void BoltStartDone()
     {
         if (BoltNetwork.IsServer)
-        {
-            lobbyName = PlayerPrefs.GetString("lobbyName");
+        {   
             Debug.Log(lobbyName);
-
             BoltNetwork.SetServerInfo(lobbyName, null);
             BoltNetwork.LoadScene("GameScene");
         }
@@ -46,18 +77,18 @@ public class Menu : Bolt.GlobalEventListener
         {
             UdpSession photonSession = session.Value as UdpSession;
 
+            gameName.text = photonSession.HostName;
             Button joinGameButtonClone = Instantiate(joinGameButtonPrefab);
             joinGameButtonClone.transform.parent = createbtns.transform;
             joinGameButtonClone.transform.localPosition = new Vector3(0, 0, 0);
             joinGameButtonClone.gameObject.SetActive(true);
 
+            
+
             joinGameButtonClone.onClick.AddListener(() => JoinGame(photonSession));
 
             joinServerButtons.Add(joinGameButtonClone);
-            //if (photonSession.Source == UdpSessionSource.Photon)
-            //{
-            //    BoltNetwork.Connect(photonSession);
-            //}
+           
         }
     }
 
@@ -90,8 +121,6 @@ public class Menu : Bolt.GlobalEventListener
 
     public void openHostName()
     {
-        lobbyName = matchNameField.text;
-        PlayerPrefs.SetString("lobbyName", lobbyName);
         SceneManager.LoadScene("HostNameScene");
     }
 

@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7147757587452490601
 RectTransform:
   m_ObjectHideFlags: 0
@@ -152,6 +152,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 144583731743839194, guid: 43d024d6804014e73b5a1a9d9366009a,
+        type: 3}
+      propertyPath: m_Text
+      value: Draw a
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43d024d6804014e73b5a1a9d9366009a, type: 3}
