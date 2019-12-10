@@ -1,10 +1,10 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
-using Photon.Pun;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
 using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
@@ -36,18 +36,36 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Game Booleans (don't change on this panel - Unity)")]
     private bool gameIsStarted = false;
-    private int getHostId = PhotonNetwork.CurrentRoom.MasterClientId;
+    private static int getHostId = PhotonNetwork.CurrentRoom.MasterClientId;
     private int playerIndex;
+    private string drawerIdGlobal;
 
     [Header("Words")]
+    public static List<string> words = new List<string>();
+
     private WordCollection wordCollection;
     private string randomWord = "Bunny";
-    [SerializeField]
-    private string wordPath;
+    private string jsonURL = "https://www.lennonpuype.be/ppp/json/words.json";
+
+    [Header("Drawer")]
+    public GameObject spheresList;
+
+    GameObject sphere;
+    Plane planeObj;
+    Vector3 startPos;
+
+    [Header("AR")]
+    public GameObject ARSession;
+    public GameObject ARSessionOrigin;
+    public GameObject ARPointManager;
+    public GameObject ARPlaneManager;
 
 
     private void Start()
     {
+        StartCoroutine(getData());
+        planeObj = new Plane(Camera.main.transform.forward * -1, this.transform.position);
+
         ExitGames.Client.Photon.Hashtable playerScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.PLAYER_SCORE, 0 } };
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerScoreProp);
 
@@ -58,6 +76,34 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         GameAllowed();
+
+        var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
+        
+
+        if (localId == drawerIdGlobal)
+        {
+            //Draw
+            if (Input.touchCount > 0 || Input.GetMouseButton(0))
+            {
+                Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0);
+
+                sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
+                sphere.transform.parent = spheresList.transform;
+
+                ARSession.SetActive(false);
+                ARSessionOrigin.SetActive(false);
+                ARPointManager.SetActive(false);
+                ARPlaneManager.SetActive(false);
+            }
+        }
+        else
+        {
+            //AR
+            ARSession.SetActive(true);
+            ARSessionOrigin.SetActive(true);
+            ARPointManager.SetActive(true);
+            ARPlaneManager.SetActive(true);
+        }
     }
 
     private void gameStarted()
@@ -75,7 +121,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void startNewRound()
     {
         Debug.Log("A new round has started!");
-        updatePlayerList();
+        //updatePlayerList();
 
         var players = PhotonNetwork.PlayerList;
         playerIndex = getHostId - 1;
@@ -84,12 +130,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
         var drawerId = Convert.ToString(drawer.UserId);
+        var drawerIdGlobal = drawerId;
 
         //HelpText.text = "Drawer ID: " + localId + "User ID: " + drawerId;
 
         if (localId == drawerId)
         {
-            //randomWord = loadRandomWord();
+            randomWord = loadRandomWord();
             HelpText.text = "Im a drawer";
             //DrawerView
             Turn.text = "It is your turn";
@@ -99,11 +146,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
+            randomWord = loadRandomWord();
             HelpText.text = "Im a guesser";
             //GuesserView
             Turn.text = drawer.NickName + " is the drawer";
             Drawer.SetActive(false);
-            Guesser.SetActive(true);
+            Guesser.SetActive(true);            
         }
 
         //Set the amount text
@@ -234,19 +282,37 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     [ContextMenu("Load Words")]
+    IEnumerator getData()
+    {
+        Debug.Log("The word is loading, please wait");
+        WWW getTheSite = new WWW(jsonURL);
+        yield return getTheSite;
+
+        if (getTheSite.error == null)
+        {
+            processJsonData(getTheSite.text);
+        }
+        else
+        {
+            Debug.Log("Please connect to the internet");
+        }
+    }
+
+    private void processJsonData(string url)
+    {
+        WordCollection wordCollection = JsonUtility.FromJson<WordCollection>(url);
+
+        for (int i = 0; i < wordCollection.words.Length; i++)
+        {
+            words.Add(wordCollection.words[i].word);
+            Debug.Log(wordCollection.words[i].word);
+        }
+    }
+
     private string loadRandomWord()
     {
-        using (StreamReader stream = new StreamReader(wordPath))
-        {
-            string json = stream.ReadToEnd();
-            wordCollection = JsonUtility.FromJson<WordCollection>(json);
-        }
-
-        System.Random random = new System.Random();
-        var randomNumber = random.Next(wordCollection.words.Length);
-
-
-        return wordCollection.words[randomNumber].word;
+        var randomNumber = UnityEngine.Random.Range(0, words.Count);
+        return words[randomNumber];
     }
 
 }
