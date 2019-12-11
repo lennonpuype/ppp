@@ -8,10 +8,11 @@ public class ToggleAR : MonoBehaviour
     public ARPlaneManager planeManager;
     public ARPointCloudManager pointCloudManager;
 
-    private void Start()
+
+    public void OnValueChanged(bool isOn)
     {
-        VisualizePlanes(true);
-        VisualizePoints(true);
+        VisualizePlanes(isOn);
+        VisualizePoints(isOn);
     }
 
     void VisualizePlanes(bool active)

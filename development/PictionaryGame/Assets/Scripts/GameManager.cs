@@ -77,12 +77,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameAllowed();
 
-        var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
-        
-
-        if (localId == drawerIdGlobal)
+        if (drawerIdGlobal != null)
         {
             //Draw
+            Vector3 temp = Input.mousePosition;
+            temp.z = 10f;
+            this.transform.position = Camera.main.ScreenToWorldPoint(temp);
+
+            ARSession.SetActive(false);
+            ARSessionOrigin.SetActive(false);
+            ARPointManager.SetActive(false);
+            ARPlaneManager.SetActive(false);
+
             if (Input.touchCount > 0 || Input.GetMouseButton(0))
             {
                 Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0);
@@ -90,11 +96,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
                 sphere.transform.parent = spheresList.transform;
 
-                ARSession.SetActive(false);
-                ARSessionOrigin.SetActive(false);
-                ARPointManager.SetActive(false);
-                ARPlaneManager.SetActive(false);
+                
             }
+            Debug.Log("You are the drawer");
         }
         else
         {
@@ -103,12 +107,13 @@ public class GameManager : MonoBehaviourPunCallbacks
             ARSessionOrigin.SetActive(true);
             ARPointManager.SetActive(true);
             ARPlaneManager.SetActive(true);
+            Debug.Log("You are not the drawer");
         }
+
     }
 
     private void gameStarted()
     {
-        
         loadGameUI();
         if (!gameIsStarted)
         {
@@ -130,7 +135,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
         var drawerId = Convert.ToString(drawer.UserId);
-        var drawerIdGlobal = drawerId;
+        drawerIdGlobal = drawerId;
 
         //HelpText.text = "Drawer ID: " + localId + "User ID: " + drawerId;
 
