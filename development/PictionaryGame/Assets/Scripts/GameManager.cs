@@ -230,12 +230,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             ExitGames.Client.Photon.Hashtable playerScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.PLAYER_SCORE, score } };
             PhotonNetwork.LocalPlayer.SetCustomProperties(playerScoreProp);
 
-            Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
-
-
             Score.text = Convert.ToString(score);
 
-            Debug.Log(score + " " + goal);
+            startNewRound();
 
             if (score == goal)
             {
