@@ -10,5 +10,6 @@ public class MultiPlayerGame
     public const string GOAL_SCORE = "Goal_Score";
     public const string WINNER = "Winner";
     public const string IS_THERE_A_WINNER = "Is_There_A_Winner";
-    public const string DRAWER_ID = "Drawer_Id";
+    public const string DRAWER = "Drawer";
+    public const string IS_THERE_A_DRAWER_CHANGE = "Is_There_A_Drawer_Change";
 }
