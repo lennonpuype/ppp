@@ -7043,9 +7043,9 @@ GameObject:
   m_Component:
   - component: {fileID: 939291501}
   - component: {fileID: 939291500}
-  - component: {fileID: 939291499}
-  - component: {fileID: 939291498}
   - component: {fileID: 939291497}
+  - component: {fileID: 939291498}
+  - component: {fileID: 939291499}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -7079,7 +7079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 191403384}
-  m_DetectionMode: -1
+  m_DetectionMode: 1
 --- !u!114 &939291499
 MonoBehaviour:
   m_ObjectHideFlags: 0
