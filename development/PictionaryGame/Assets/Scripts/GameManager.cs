@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEditor;
+using System.Text;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text Score;
     public GameObject PlayerList;
     public Text Player;
+    public Text playerNameField;
     public GameObject Drawer;
     public GameObject Guesser;
     public Text DrawWord;
@@ -47,6 +50,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private string drawerIdGlobal;
     private bool thereIsAWinner = false;
     private string globalWord;
+    List<Text> playerNames = new List<Text>();
+    private bool playerListActive = false;
 
     [Header("Words")]
     public static List<string> words = new List<string>();
@@ -97,7 +102,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         GameAllowed();
-       
+
+        updatePlayerList();
+
         if (gameIsStarted)
         {
             onlyLoadOnceOnStateChange();
@@ -171,6 +178,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         if (isThereADrawerChange)
         {
+            
             Debug.Log("IN DRAWER CHANGE");
             var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
             globalWord = Convert.ToString(randomWord);
@@ -191,8 +199,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 spheresList = null;
                 Debug.Log(drawer + " " + players.Length);
             }
-
-
 
             ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "false" } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
@@ -215,7 +221,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(newDrawer);
 
         ErrorBox.SetActive(false);
-        
 
         ExitGames.Client.Photon.Hashtable isWinnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_WINNER, "false" } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
@@ -254,6 +259,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Check if the word matches with the current random word
         if (word == randomWord)
         {
+            
+
             ErrorBox.SetActive(false);
 
             int prevPoints = 0;
@@ -278,6 +285,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
 
+            
             //startNewRound(drawer + 1);
 
             if (score == goal)
@@ -291,10 +299,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
                 //thereIsAWinner = true;
             }
-
+            
         }
         else
         {
+            
+
             ErrorBox.SetActive(true);
 
             GuesserInputField.Select();
@@ -335,18 +345,19 @@ public class GameManager : MonoBehaviourPunCallbacks
             else
             {
                 score -= 2;
-
+                
                 ExitGames.Client.Photon.Hashtable playerScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.PLAYER_SCORE, score } };
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerScoreProp);
 
                 Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
 
+                
 
                 Score.text = Convert.ToString(score);
             }
 
             
-           
+
         }
 
     }
@@ -382,21 +393,33 @@ public class GameManager : MonoBehaviourPunCallbacks
         SceneLoader.Instance.LoadScene("LobbyScene");
     }
 
+    //private int lineCount = 1;
+
+    //public override void OnLeftRoom()
+    //{
+    //    lineCount--;
+    //    Debug.Log("someone left the room");
+    //}
+
+    //public override void OnJoinedRoom()
+    //{
+    //    lineCount++;
+    //    Debug.Log("someone joined the room");
+    //}
+   
+
     private void updatePlayerList()
     {
         var players = PhotonNetwork.CurrentRoom.Players;
 
+        var listOfPlayers = new StringBuilder();
+
         foreach (var player in players)
         {
-            playerName.text = player.Value.NickName + " " + player.Value.CustomProperties["Player_Score"];
-
-            Text playerNameClone = Instantiate(playerName);
-            playerNameClone.transform.parent = playerList.transform;
-            playerNameClone.transform.localPosition = new Vector3(0, 0, 0);
-            playerNameClone.gameObject.SetActive(true);
+            listOfPlayers.Append(player.Value.NickName + " " + player.Value.CustomProperties["Player_Score"] + "\n");
         }
 
-        playerList = null;
+        playerNameField.text = listOfPlayers.ToString();
     }
 
     public override void OnPlayerEnteredRoom(Player newPlayer)

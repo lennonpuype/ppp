@@ -20,7 +20,7 @@ public class ToggleAR : MonoBehaviour
         planeManager.enabled = active;
         foreach (ARPlane plane in planeManager.trackables)
         {
-            plane.gameObject.SetActive(active);
+            plane.gameObject.SetActive(false);
         }
     }
 

@@ -141,6 +141,7 @@ namespace Photon.Realtime
         /// <summary>Can be used to store a reference that's useful to know "by player".</summary>
         /// <remarks>Example: Set a player's character as Tag by assigning the GameObject on Instantiate.</remarks>
         public object TagObject;
+        private KeyValuePair<int, Player> player;
 
 
         /// <summary>
@@ -170,6 +171,11 @@ namespace Photon.Realtime
 
             this.CustomProperties = new Hashtable();
             this.InternalCacheProperties(playerProperties);
+        }
+
+        public Player(KeyValuePair<int, Player> player)
+        {
+            this.player = player;
         }
 
 
@@ -308,6 +314,11 @@ namespace Photon.Realtime
         public string ToStringFull()
         {
             return string.Format("#{0:00} '{1}'{2} {3}", this.ActorNumber, this.NickName, this.IsInactive ? " (inactive)" : "", this.CustomProperties.ToStringFull());
+        }
+
+        public static explicit operator Player(KeyValuePair<int, Player> v)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
