@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     private int playerIndex;
     private string drawerIdGlobal;
     private bool thereIsAWinner = false;
+    private string globalWord;
 
     [Header("Words")]
     public static List<string> words = new List<string>();
@@ -84,89 +85,114 @@ public class GameManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable goalScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_SCORE, 100 } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(goalScoreProp);
 
+        //Set Drawer
+        ExitGames.Client.Photon.Hashtable newDrawer = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, 0 } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(newDrawer);
+
         playerIndex = getHostId;
         GameAllowed();
+        
     }
 
     private void Update()
     {
         GameAllowed();
-
-        
-        if (drawerIdGlobal != null)
+       
+        if (gameIsStarted)
         {
-            //Draw
-            Vector3 temp = Input.mousePosition;
-            temp.z = 10f;
-            this.transform.position = Camera.main.ScreenToWorldPoint(temp);
-
-            ARSession.SetActive(false);
-            ARSessionOrigin.SetActive(false);
-            ARPointManager.SetActive(false);
-            ARPlaneManager.SetActive(false);
-
-            if (Input.touchCount > 0 || Input.GetMouseButton(0))
-            {
-                Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0);
-
-                sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
-                sphere.transform.parent = spheresList.transform;  
-            }
-        }
-        else
-        {
-            //AR
-            ARSession.SetActive(true);
-            ARSessionOrigin.SetActive(true);
-            ARPointManager.SetActive(true);
-            ARPlaneManager.SetActive(true);
-        }
-
-        var isThereAWinner = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Winner"]);
-
-        if (isThereAWinner)
-        {
-            WinnerUI.SetActive(true);
-            string winner = Convert.ToString(PhotonNetwork.CurrentRoom.CustomProperties["Winner"]);
-            WinnerText.text = winner;
-        }
-        else
-        {
-            WinnerUI.SetActive(false);
-        }
-
-        gameView();
-    }
-
-    private void gameView()
-    {
-        var isThereADrawerChange = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Drawer_Change"]);
-
-        if (isThereADrawerChange)
-        {
+            onlyLoadOnceOnStateChange();
             var drawerInitId = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
-            var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
-
+            
             var players = PhotonNetwork.PlayerList;
             var drawer = players[drawerInitId];
 
             var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
             var drawerId = Convert.ToString(drawer.UserId);
 
+
             if (localId == drawerId)
             {
-                //Change drawerstatus
+                ARSession.SetActive(false);
+                ARSessionOrigin.SetActive(false);
+                ARPointManager.SetActive(false);
+                ARPlaneManager.SetActive(false);
+
                 Turn.text = "It is your turn";
-                DrawWord.text = "Draw a " + randomWord;
+                DrawWord.text = "Draw a " + globalWord;
                 Drawer.SetActive(true);
                 Guesser.SetActive(false);
+
+                //Draw
+                Vector3 temp = Input.mousePosition;
+                temp.z = 10f;
+                this.transform.position = Camera.main.ScreenToWorldPoint(temp);
+
+                if (Input.touchCount > 0 || Input.GetMouseButton(0))
+                {
+                    Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0);
+
+                    HelpText.text = Convert.ToString(spherePosition);
+
+                    sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
+                    sphere.transform.parent = spheresList.transform;
+                }
             }
             else
             {
+                //AR
+                ARSession.SetActive(true);
+                ARSessionOrigin.SetActive(true);
+                ARPointManager.SetActive(true);
+                ARPlaneManager.SetActive(true);
+
                 Turn.text = drawer.NickName + " is the drawer";
                 Drawer.SetActive(false);
                 Guesser.SetActive(true);
             }
+
+            var isThereAWinner = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Winner"]);
+
+            if (isThereAWinner)
+            {
+                WinnerUI.SetActive(true);
+                string winner = Convert.ToString(PhotonNetwork.CurrentRoom.CustomProperties["Winner"]);
+                WinnerText.text = winner;
+            }
+            else
+            {
+                WinnerUI.SetActive(false);
+            }
+        }
+    }
+
+    private void onlyLoadOnceOnStateChange()
+    {
+        var isThereADrawerChange = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Drawer_Change"]);
+        
+        if (isThereADrawerChange)
+        {
+            Debug.Log("IN DRAWER CHANGE");
+            var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
+            globalWord = Convert.ToString(randomWord);
+
+            var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
+            var players = PhotonNetwork.PlayerList;
+
+            //Debug.Log(drawer + " " + players.Length);
+            if (drawer >= players.Length-1)
+            {
+                startNewRound(0);
+                spheresList = null;
+                Debug.Log(drawer + " " + players.Length);
+            }
+            else
+            {
+                startNewRound(drawer + 1);
+                spheresList = null;
+                Debug.Log(drawer + " " + players.Length);
+            }
+
+
 
             ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "false" } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
@@ -178,17 +204,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         loadGameUI();
         if (!gameIsStarted)
         {
-            ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
-            PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
-
-            startNewRound(0);
+            startNewRound(Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]));
             gameIsStarted = true;
         }
     }
 
     private void startNewRound(int drawerInitId)
     {
+        ExitGames.Client.Photon.Hashtable newDrawer = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, drawerInitId } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(newDrawer);
+
         ErrorBox.SetActive(false);
+        
 
         ExitGames.Client.Photon.Hashtable isWinnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_WINNER, "false" } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
@@ -251,7 +278,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
 
-            startNewRound(drawer + 1);
+            //startNewRound(drawer + 1);
 
             if (score == goal)
             {

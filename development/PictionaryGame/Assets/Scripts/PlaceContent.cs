@@ -16,18 +16,19 @@ public class PlaceContent : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !IsClickOverUI())
-        {
-            List<ARRaycastHit> hitPoints = new List<ARRaycastHit>();
-            raycastManager.Raycast(Input.mousePosition, hitPoints, TrackableType.Planes);
+        //if (Input.GetMouseButtonDown(0) && !IsClickOverUI())
+        //{
+        //    List<ARRaycastHit> hitPoints = new List<ARRaycastHit>();
+        //    raycastManager.Raycast(Input.mousePosition, hitPoints, TrackableType.Planes);
 
-            if (hitPoints.Count > 0)
-            {
-                Pose pose = hitPoints[0].pose;
-                transform.rotation = pose.rotation;
-                transform.position = pose.position;
-            }
-        }
+        //    if (hitPoints.Count > 0)
+        //    {
+        //        Pose pose = hitPoints[0].pose;
+        //        transform.rotation = pose.rotation;
+        //        transform.position = pose.position;
+
+        //    }
+        //}
     }
 
     bool IsClickOverUI()
