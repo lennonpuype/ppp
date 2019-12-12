@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerScoreProp);
 
         //Set the goalscore of the current game
-        ExitGames.Client.Photon.Hashtable goalScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_SCORE, 100 } };
+        ExitGames.Client.Photon.Hashtable goalScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_SCORE, 250 } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(goalScoreProp);
 
         //Set Drawer
@@ -116,6 +116,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             var localId = Convert.ToString(PhotonNetwork.LocalPlayer.UserId);
             var drawerId = Convert.ToString(drawer.UserId);
 
+            var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
+            globalWord = Convert.ToString(randomWord);
+
+            Debug.Log(globalWord);
 
             if (localId == drawerId)
             {
@@ -136,7 +140,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 if (Input.touchCount > 0 || Input.GetMouseButton(0))
                 {
-                    Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0);
+                    Vector3 spherePosition = new Vector3(this.transform.position.x, this.transform.position.y, 0.73f);
 
                     HelpText.text = Convert.ToString(spherePosition);
 
@@ -178,15 +182,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         if (isThereADrawerChange)
         {
-            
             Debug.Log("IN DRAWER CHANGE");
-            var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
-            globalWord = Convert.ToString(randomWord);
 
-            var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
             var players = PhotonNetwork.PlayerList;
+            var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
 
-            //Debug.Log(drawer + " " + players.Length);
             if (drawer >= players.Length-1)
             {
                 startNewRound(0);
@@ -217,6 +217,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void startNewRound(int drawerInitId)
     {
+        var randomWordForRoom = loadRandomWord();
+
+        //Random Word for everyone
+        ExitGames.Client.Photon.Hashtable randomWordProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.RANDOM_WORD, randomWordForRoom } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(randomWordProp);
+
         ExitGames.Client.Photon.Hashtable newDrawer = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, drawerInitId } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(newDrawer);
 
@@ -229,12 +235,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.CurrentRoom.SetCustomProperties(drawerProp);
         Debug.Log("A new round has started!");
 
-        var randomWordForRoom = loadRandomWord();
-
-        //Random Word for everyone
-        ExitGames.Client.Photon.Hashtable randomWordProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.RANDOM_WORD, randomWordForRoom } };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(randomWordProp);     
-
+       
         //Set the amount text
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
@@ -248,7 +249,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void GuessTheWord()
     {
-        
         //Get the word from the input
         var word = GuesserInput.text.ToLower();
         var randomWord = Convert.ToString(PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"]).ToLower();
@@ -259,8 +259,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Check if the word matches with the current random word
         if (word == randomWord)
         {
-            
-
             ErrorBox.SetActive(false);
 
             int prevPoints = 0;
@@ -299,12 +297,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
                 //thereIsAWinner = true;
             }
-            
         }
         else
         {
-            
-
             ErrorBox.SetActive(true);
 
             GuesserInputField.Select();
@@ -333,11 +328,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 prevPoints = 0;
             }
 
-            
-
             var score = prevPoints + Convert.ToDouble(points);
             
-
             if (score <= 0)
             {
                 Debug.Log("Can't go lower");
@@ -349,17 +341,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ExitGames.Client.Photon.Hashtable playerScoreProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.PLAYER_SCORE, score } };
                 PhotonNetwork.LocalPlayer.SetCustomProperties(playerScoreProp);
 
-                Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
-
-                
-
                 Score.text = Convert.ToString(score);
             }
-
-            
-
         }
-
     }
 
     private void GameAllowed()
@@ -392,21 +376,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         SceneLoader.Instance.LoadScene("LobbyScene");
     }
-
-    //private int lineCount = 1;
-
-    //public override void OnLeftRoom()
-    //{
-    //    lineCount--;
-    //    Debug.Log("someone left the room");
-    //}
-
-    //public override void OnJoinedRoom()
-    //{
-    //    lineCount++;
-    //    Debug.Log("someone joined the room");
-    //}
-   
 
     private void updatePlayerList()
     {
