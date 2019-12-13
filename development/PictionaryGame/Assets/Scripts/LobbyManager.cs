@@ -147,6 +147,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to photon network");
     }
 
+    
+
     #endregion
 
     IEnumerator DeactivateAfterSeconds(GameObject gameObject, float seconds)

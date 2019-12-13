@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ErrorBox;
     public Text ErrorMessage;
     public Text HelpText;
+    public GameObject ARButton;
 
     [Header("WinnerUI")]
     public GameObject WinnerUI;
@@ -82,7 +83,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-
         WinnerUI.SetActive(false);
         ErrorBox.SetActive(false);
         
@@ -171,6 +171,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ARSessionOrigin.SetActive(true);
                 ARPointManager.SetActive(true);
                 ARPlaneManager.SetActive(true);
+                ARButton.SetActive(true);
 
                 Turn.text = drawer.NickName + " is the drawer";
                 Drawer.SetActive(false);
@@ -194,7 +195,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-   
+    public void resetARView()
+    {
+        //Camera.main.Reset();
+    }
 
     private void onlyLoadOnceOnStateChange()
     {
@@ -470,6 +474,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             //Debug.Log("Please connect to the internet");
         }
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        SceneLoader.Instance.LoadScene("LobbyScene");
     }
 
     private void processJsonData(string url)
