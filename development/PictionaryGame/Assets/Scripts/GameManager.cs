@@ -94,6 +94,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable newDrawer = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, 0 } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(newDrawer);
 
+        //The winner is false when starting
+        ExitGames.Client.Photon.Hashtable isWinnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_WINNER, "false" } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
+
         playerIndex = getHostId;
         GameAllowed();
         
@@ -119,7 +123,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
             globalWord = Convert.ToString(randomWord);
 
-            Debug.Log(globalWord);
+            //Debug.Log(globalWord);
 
             if (localId == drawerId)
             {
@@ -135,7 +139,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 //Draw
                 Vector3 temp = Input.mousePosition;
-                temp.z = 10f;
+                temp.z = 0.73f;
                 this.transform.position = Camera.main.ScreenToWorldPoint(temp);
 
                 if (Input.touchCount > 0 || Input.GetMouseButton(0))
@@ -146,6 +150,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                     sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
                     sphere.transform.parent = spheresList.transform;
+
+
+                    
+                    if(spheresList.transform.childCount >= PhotonNetwork.MAX_VIEW_IDS - 300)
+                    {
+                        var getFirstView = spheresList.transform.GetChild(0).gameObject;
+                        //PhotonNetwork.Destroy(PhotonNetwork.PhotonViews[0]);
+                        PhotonNetwork.Destroy(getFirstView);
+                        Debug.Log("Destroy first child");
+                    }
                 }
             }
             else
@@ -162,12 +176,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             var isThereAWinner = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Winner"]);
-
+            Debug.Log(isThereAWinner);
             if (isThereAWinner)
             {
                 WinnerUI.SetActive(true);
                 string winner = Convert.ToString(PhotonNetwork.CurrentRoom.CustomProperties["Winner"]);
-                WinnerText.text = winner;
+                WinnerText.text = "Congratulations \n" + winner;
             }
             else
             {
@@ -228,8 +242,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         ErrorBox.SetActive(false);
 
-        ExitGames.Client.Photon.Hashtable isWinnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_WINNER, "false" } };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
         //Set drawer
         ExitGames.Client.Photon.Hashtable drawerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, drawerInitId } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(drawerProp);
