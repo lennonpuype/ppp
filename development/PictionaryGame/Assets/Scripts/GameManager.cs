@@ -8,6 +8,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEditor;
 using System.Text;
+using System.Timers;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -52,6 +53,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     private string globalWord;
     List<Text> playerNames = new List<Text>();
     private bool playerListActive = false;
+    private bool animationStarted = true;
+    List<GameObject> spheresArray = new List<GameObject>();
 
     [Header("Words")]
     public static List<string> words = new List<string>();
@@ -73,11 +76,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ARPointManager;
     public GameObject ARPlaneManager;
 
+    [Header("DrawAnimations")]
+    public GameObject DrawAnimation;
+
 
     private void Start()
     {
+
         WinnerUI.SetActive(false);
         ErrorBox.SetActive(false);
+        
 
         StartCoroutine(getData());
         planeObj = new Plane(Camera.main.transform.forward * -1, this.transform.position);
@@ -100,7 +108,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerIndex = getHostId;
         GameAllowed();
-        
     }
 
     private void Update()
@@ -113,7 +120,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             onlyLoadOnceOnStateChange();
             var drawerInitId = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
-            
+
             var players = PhotonNetwork.PlayerList;
             var drawer = players[drawerInitId];
 
@@ -122,8 +129,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             var randomWord = PhotonNetwork.CurrentRoom.CustomProperties["Random_Word"];
             globalWord = Convert.ToString(randomWord);
-
-            //Debug.Log(globalWord);
 
             if (localId == drawerId)
             {
@@ -150,15 +155,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                     sphere = PhotonNetwork.Instantiate("Sphere", spherePosition, Quaternion.identity);
                     sphere.transform.parent = spheresList.transform;
+                    spheresArray.Add(sphere);
 
-
-                    
-                    if(spheresList.transform.childCount >= PhotonNetwork.MAX_VIEW_IDS - 300)
+                    if (spheresList.transform.childCount >= PhotonNetwork.MAX_VIEW_IDS - 300)
                     {
                         var getFirstView = spheresList.transform.GetChild(0).gameObject;
-                        //PhotonNetwork.Destroy(PhotonNetwork.PhotonViews[0]);
                         PhotonNetwork.Destroy(getFirstView);
-                        Debug.Log("Destroy first child");
                     }
                 }
             }
@@ -176,7 +178,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             var isThereAWinner = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Winner"]);
-            Debug.Log(isThereAWinner);
+            //Debug.Log(isThereAWinner);
             if (isThereAWinner)
             {
                 WinnerUI.SetActive(true);
@@ -187,8 +189,12 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 WinnerUI.SetActive(false);
             }
+
+            
         }
     }
+
+   
 
     private void onlyLoadOnceOnStateChange()
     {
@@ -196,28 +202,34 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         if (isThereADrawerChange)
         {
-            Debug.Log("IN DRAWER CHANGE");
-
             var players = PhotonNetwork.PlayerList;
             var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
 
-            if (drawer >= players.Length-1)
+            var localId = PhotonNetwork.LocalPlayer.ActorNumber;
+
+            Debug.Log(localId + " " + drawer);
+            if (localId == drawer)
+            {
+                Debug.Log("Destroy Objects of drawer");
+                PhotonNetwork.DestroyPlayerObjects(drawer);
+            }
+                if (drawer >= players.Length-1)
             {
                 startNewRound(0);
                 spheresList = null;
-                Debug.Log(drawer + " " + players.Length);
             }
             else
             {
                 startNewRound(drawer + 1);
                 spheresList = null;
-                Debug.Log(drawer + " " + players.Length);
             }
 
             ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "false" } };
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
         }
     }
+
+   
 
     private void gameStarted()
     {
@@ -245,9 +257,39 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Set drawer
         ExitGames.Client.Photon.Hashtable drawerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DRAWER, drawerInitId } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(drawerProp);
-        Debug.Log("A new round has started!");
+        //Debug.Log("A new round has started!");
 
-       
+        var localId = PhotonNetwork.LocalPlayer.ActorNumber - 1;
+        var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
+        var drawerId = drawer;
+
+
+        
+
+        //if (spheresList.transform.childCount > 1)
+        //{
+        //    Debug.Log("Remove");
+        //    //for(int i = 0; i > spheresList.transform.childCount-1; i++)
+        //    //{
+        //    //    var getView = spheresList.transform.GetChild(i).gameObject;
+        //    //    //PhotonNetwork.Destroy(PhotonNetwork.PhotonViews[0]);
+        //    //    PhotonNetwork.Destroy(getView);
+        //    //    //PhotonNetwork.Destroy(spheresList.transform.GetChild(i));
+        //    //    //Destroy(spheresList.transform.GetChild(i));
+        //    //}
+        //    foreach (var child in spheresList.transform)
+        //    {
+        //        Debug.Log(child);
+        //    }
+        //}
+
+        //Debug.Log(localId + " " + drawerId);
+        //if (localId == drawerId)
+        //{
+        //    InvokeRepeating("startDrawerAnimation", 5.0f, 2.0f);
+        //}
+
+
         //Set the amount text
         if (PhotonNetwork.CurrentRoom.PlayerCount > 1)
         {
@@ -300,7 +342,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             if (score == goal)
             {
-                Debug.Log("We have a winner");
+                //Debug.Log("We have a winner");
                 ExitGames.Client.Photon.Hashtable winnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.WINNER, PhotonNetwork.LocalPlayer.NickName } };
                 PhotonNetwork.CurrentRoom.SetCustomProperties(winnerProp);
 
@@ -344,7 +386,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             
             if (score <= 0)
             {
-                Debug.Log("Can't go lower");
+                //Debug.Log("Can't go lower");
             }
             else
             {
@@ -416,7 +458,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [ContextMenu("Load Words")]
     IEnumerator getData()
     {
-        Debug.Log("The word is loading, please wait");
+        //Debug.Log("The word is loading, please wait");
         WWW getTheSite = new WWW(jsonURL);
         yield return getTheSite;
 
@@ -426,7 +468,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log("Please connect to the internet");
+            //Debug.Log("Please connect to the internet");
         }
     }
 
@@ -437,7 +479,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         for (int i = 0; i < wordCollection.words.Length; i++)
         {
             words.Add(wordCollection.words[i].word);
-            Debug.Log(wordCollection.words[i].word);
+            //Debug.Log(wordCollection.words[i].word);
         }
     }
 
