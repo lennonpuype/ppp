@@ -7810,7 +7810,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Available Games
+  m_Text: Create a game
 --- !u!222 &2033307012
 CanvasRenderer:
   m_ObjectHideFlags: 0

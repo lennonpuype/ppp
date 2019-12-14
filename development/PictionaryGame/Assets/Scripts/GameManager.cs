@@ -45,18 +45,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject WinnerUI;
     public Text WinnerText;
 
-    [Header("Game Booleans (don't change on this panel - Unity)")]
-    private bool gameIsStarted = false;
-    private static int getHostId = PhotonNetwork.CurrentRoom.MasterClientId;
-    private int playerIndex;
-    private string drawerIdGlobal;
-    private bool thereIsAWinner = false;
-    private string globalWord;
-    List<Text> playerNames = new List<Text>();
-    private bool playerListActive = false;
-    private bool animationStarted = true;
-    List<GameObject> spheresArray = new List<GameObject>();
-
     [Header("Words")]
     public static List<string> words = new List<string>();
 
@@ -79,6 +67,23 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("DrawAnimations")]
     public GameObject DrawAnimation;
+
+    [Header("Game Booleans (don't change on this panel - Unity)")]
+    private bool gameIsStarted = false;
+    private static int getHostId = PhotonNetwork.CurrentRoom.MasterClientId;
+    private int playerIndex;
+    private string drawerIdGlobal;
+    private bool thereIsAWinner = false;
+    private string globalWord;
+    List<Text> playerNames = new List<Text>();
+    private bool playerListActive = false;
+    private bool animationStarted = true;
+    List<GameObject> spheresArray = new List<GameObject>();
+
+    //Timer
+    private int counter;
+    private int timeAmount = 60;
+    private static Timer timer;
 
 
     private void Start()
@@ -267,6 +272,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
         var drawerId = drawer;
 
+        Debug.Log(localId + " " + drawerId);
+
+        if (localId != drawerId)
+        {
+            timer = new Timer(timeAmount * 1000);
+            timer.Elapsed += OnTimedEvent;
+            timer.Enabled = true;
+        }
+
 
         
 
@@ -303,6 +317,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Amount.text = PhotonNetwork.CurrentRoom.PlayerCount + " person is in te game";
         }
+    }
+
+    private static void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    {
+        Debug.Log("End round!");
+        ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
+
     }
 
     public void GuessTheWord()
