@@ -9,6 +9,7 @@ using Photon.Realtime;
 using UnityEditor;
 using System.Text;
 using System.Timers;
+using DentedPixel;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -80,10 +81,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool animationStarted = true;
     List<GameObject> spheresArray = new List<GameObject>();
 
-    //Timer
-    private int counter;
-    private int timeAmount = 60;
+    [Header("Timer")]
+    private int timeAmount = 45;
     private static Timer timer;
+    public GameObject TimerBar;
+
 
 
     private void Start()
@@ -117,6 +119,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
+        
+
         GameAllowed();
 
         updatePlayerList();
@@ -142,7 +146,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ARPointManager.SetActive(false);
                 ARPlaneManager.SetActive(false);
 
-                Turn.text = "It is your turn";
+                Turn.text = "It is your turn to draw";
                 DrawWord.text = "Draw a " + globalWord;
                 Drawer.SetActive(true);
                 Guesser.SetActive(false);
@@ -216,6 +220,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             var localId = PhotonNetwork.LocalPlayer.ActorNumber;
 
+            TimerBar.transform.localScale = new Vector3(0, 1, 1);
+
             Debug.Log(localId + " " + drawer);
             if (localId == drawer)
             {
@@ -274,15 +280,21 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Debug.Log(localId + " " + drawerId);
 
-        if (localId != drawerId)
-        {
+        //if (localId != drawerId)
+        //{
             timer = new Timer(timeAmount * 1000);
             timer.Elapsed += OnTimedEvent;
             timer.Enabled = true;
-        }
 
 
-        
+            //secondsTimer = new Timer(1000);
+            //secondsTimer.Elapsed += SecondPassedEvent;
+            //secondsTimer.Enabled = true;
+        //}
+
+        LeanTween.scaleX(TimerBar, 1, timeAmount);
+
+
 
         //if (spheresList.transform.childCount > 1)
         //{
@@ -319,7 +331,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private static void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    private void SecondPassedEvent(System.Object source, ElapsedEventArgs e)
+    {
+        //Debug.Log("1second passed");
+        
+        //TimerBar = GetComponent<Image>();
+        //TimerBar.fillAmount = .2f;
+        //TimerBar.transform.localScale = new Vector3(0.2f, 1f, 1f);
+    }
+
+    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
     {
         Debug.Log("End round!");
         ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
