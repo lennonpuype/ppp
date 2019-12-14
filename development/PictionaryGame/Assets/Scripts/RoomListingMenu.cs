@@ -10,6 +10,29 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
     public GameObject gameButtonList;
     public Button gameButton;
     public Text gameText;
+    public InputField friendInput;
+    public GameObject friendButtonList;
+
+    private void Update()
+    {
+        
+        var friendName = friendInput.text;
+
+        if (!string.IsNullOrEmpty(friendName))
+        {
+            
+            gameButtonList.SetActive(false);
+            friendButtonList.SetActive(true);
+            var roomList = PhotonNetwork.GetCustomRoomList(null, PhotonNetwork.CurrentRoom.Players[Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount)].NickName);
+            Debug.Log(roomList);
+        }
+        else
+        {
+            gameButtonList.SetActive(true);
+            friendButtonList.SetActive(false);
+        }
+    }
+    
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -31,6 +54,11 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
             {
                 Debug.Log("Room deleted");
             }
+        }
+
+        if (roomList.Count == 0)
+        {
+            Debug.Log("There are no rooms available");
         }
     }
 

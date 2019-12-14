@@ -13,7 +13,6 @@ public class checkIfConnectedToNetwork : MonoBehaviour
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            Debug.Log("Disconnected");
             nextBtn.SetActive(false);
             notConnectedImg.SetActive(true);
             connectionStatus.gameObject.SetActive(true);
@@ -22,7 +21,6 @@ public class checkIfConnectedToNetwork : MonoBehaviour
         }
         else
         {
-            Debug.Log("Connected");
             nextBtn.SetActive(true);
             notConnectedImg.SetActive(false);
             connectionStatus.gameObject.SetActive(false);

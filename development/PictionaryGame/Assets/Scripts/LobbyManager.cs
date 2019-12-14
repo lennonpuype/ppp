@@ -27,6 +27,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject ui_Popup;
     public Text popupReason;
 
+    [Header("Onboarding UI")]
+    public GameObject ui_Onboarding;
+    public GameObject onboarding1;
+
+    //[Header("Other")]
+    //private int hasPlayed = PlayerPrefs.GetInt("HasPlayed");
+
     #region UNITY Methods
     // Start is called before the first frame update
     void Start()
@@ -46,6 +53,24 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             ui_connectionStatus.SetActive(false);
 
             ui_login.SetActive(true);
+        }
+
+
+        int hasPlayed = PlayerPrefs.GetInt("FirstTimePlaying");
+
+        if (hasPlayed == 0)
+        {
+            //First time
+            ui_login.SetActive(false);
+            
+            ui_Onboarding.SetActive(true);
+            onboarding1.SetActive(true);
+        }
+        else
+        {
+            //Not First Time
+            ui_login.SetActive(true);
+            ui_Onboarding.SetActive(false);
         }
     }
 

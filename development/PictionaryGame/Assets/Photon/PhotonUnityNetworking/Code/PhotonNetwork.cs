@@ -3122,6 +3122,11 @@ namespace Photon.Pun
                 }
             }
         }
-        #endif
+
+        public static void FindFriends(string friendName)
+        {
+            throw new NotImplementedException();
+        }
+#endif
     }
 }
