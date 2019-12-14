@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
+using System;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -21,6 +22,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject ui_connectionStatus;
     public Text connectionStatusText;
     public bool showConnectionStatus = false;
+
+    [Header("Popup UI")]
+    public GameObject ui_Popup;
+    public Text popupReason;
 
     #region UNITY Methods
     // Start is called before the first frame update
@@ -51,6 +56,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             connectionStatusText.text = "" + PhotonNetwork.NetworkClientState;
         }
+
+        var disconnected = Convert.ToBoolean(PhotonNetwork.LocalPlayer.CustomProperties["Disconnected"]);
+
+        if (disconnected)
+        {
+            ui_Popup.SetActive(true);
+            
+            popupReason.text = "You got disconnected :(";
+        }
+        else
+        {
+           
+            ui_Popup.SetActive(false);
+            popupReason.text = "";
+        }
+    }
+
+    public void closeDisconnectionMessage()
+    {
+        ExitGames.Client.Photon.Hashtable isDisconnected = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DISCONNECTED, "false" } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(isDisconnected);
     }
 
     #endregion
@@ -88,7 +114,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void createAndJoinRoom()
     {
-        string randomRoomName = "Game" + Random.Range(0, 1000);
+        string randomRoomName = "Game" + UnityEngine.Random.Range(0, 1000);
 
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 5;
@@ -132,8 +158,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnConnected()
     {
         Debug.Log("We connected to internet");
+    }
 
-
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        ExitGames.Client.Photon.Hashtable isDisconnected = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DISCONNECTED, "true" } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(isDisconnected);
+        SceneLoader.Instance.LoadScene("LobbyScene");
     }
 
     public override void OnConnectedToMaster()
@@ -147,7 +178,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " is connected to photon network");
     }
 
-    
+    //public override void OnDisconnected(DisconnectCause cause)
+    //{
+    //    SceneLoader.Instance.LoadScene("LobbyScene");
+    //    ui_Popup.SetActive(true);
+    //    popupReason.text = Convert.ToString(cause);
+    //}
 
     #endregion
 

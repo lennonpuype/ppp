@@ -12,4 +12,7 @@ public class MultiPlayerGame
     public const string IS_THERE_A_WINNER = "Is_There_A_Winner";
     public const string DRAWER = "Drawer";
     public const string IS_THERE_A_DRAWER_CHANGE = "Is_There_A_Drawer_Change";
+
+    //Lobby
+    public const string DISCONNECTED = "Disconnected";
 }

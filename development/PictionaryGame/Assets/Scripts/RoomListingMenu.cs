@@ -33,4 +33,11 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
             }
         }
     }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        ExitGames.Client.Photon.Hashtable isDisconnected = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.DISCONNECTED, "true" } };
+        PhotonNetwork.LocalPlayer.SetCustomProperties(isDisconnected);
+        SceneLoader.Instance.LoadScene("LobbyScene");
+    }
 }
