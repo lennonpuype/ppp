@@ -4,6 +4,7 @@ public class MultiPlayerGame
 {
     //Local Player
 	public const string PLAYER_SCORE = "Player_Score";
+    public const string RESET_JOIN_LIST = "Reset_Join_List";
 
     //Current Room
     public const string RANDOM_WORD = "Random_Word";

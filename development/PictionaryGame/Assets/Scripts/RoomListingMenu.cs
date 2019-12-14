@@ -4,46 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class RoomListingMenu : MonoBehaviourPunCallbacks
 {
     public GameObject gameButtonList;
     public Button gameButton;
     public Text gameText;
-    public InputField friendInput;
-    public GameObject friendButtonList;
+    public Text roomsAvailable;
 
-    private void Update()
-    {
-        
-        var friendName = friendInput.text;
-
-        if (!string.IsNullOrEmpty(friendName))
-        {
-            
-            gameButtonList.SetActive(false);
-            friendButtonList.SetActive(true);
-            var roomList = PhotonNetwork.GetCustomRoomList(null, PhotonNetwork.CurrentRoom.Players[Random.Range(0, PhotonNetwork.CurrentRoom.PlayerCount)].NickName);
-            Debug.Log(roomList);
-        }
-        else
-        {
-            gameButtonList.SetActive(true);
-            friendButtonList.SetActive(false);
-        }
-    }
-    
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
-
         foreach (RoomInfo room in roomList)
         {
+            
             if (!room.RemovedFromList)
             {
                 gameText.text = room.Name;
 
-                Button joinGameButtonClone = Instantiate(gameButton);
+                Button joinGameButtonClone = Instantiate(gameButton) as Button;
+               
                 joinGameButtonClone.transform.parent = gameButtonList.transform;
                 joinGameButtonClone.transform.localPosition = new Vector3(0, 0, 0);
                 joinGameButtonClone.gameObject.SetActive(true);
@@ -53,12 +34,23 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
             else
             {
                 Debug.Log("Room deleted");
+
+                ExitGames.Client.Photon.Hashtable resetJoinList = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.RESET_JOIN_LIST, true } };
+                PhotonNetwork.LocalPlayer.SetCustomProperties(resetJoinList);
+
+                SceneManager.LoadSceneAsync("LobbyScene");
+                
             }
         }
 
         if (roomList.Count == 0)
         {
-            Debug.Log("There are no rooms available");
+            roomsAvailable.gameObject.SetActive(true);
+            roomsAvailable.text = "There are no available rooms to show yet";
+        }
+        else
+        {
+            roomsAvailable.gameObject.SetActive(false);
         }
     }
 

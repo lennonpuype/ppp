@@ -53,26 +53,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             ui_connectionStatus.SetActive(false);
 
             ui_login.SetActive(true);
-        }
-
-
-        int hasPlayed = PlayerPrefs.GetInt("FirstTimePlaying");
-
-        if (hasPlayed == 0)
-        {
-            //First time
-            ui_login.SetActive(false);
             
-            ui_Onboarding.SetActive(true);
-            onboarding1.SetActive(true);
+
+            int hasPlayed = PlayerPrefs.GetInt("FirstTimePlaying");
+
+            if (hasPlayed == 0)
+            {
+                //First time
+                ui_login.SetActive(false);
+
+                ui_Onboarding.SetActive(true);
+                onboarding1.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Dendezen");
+               
+                ui_login.SetActive(true);
+                
+                //Not First Time
+
+                ui_Onboarding.SetActive(false);
+            }
         }
-        else
-        {
-            //Not First Time
-            ui_login.SetActive(true);
-            ui_Onboarding.SetActive(false);
-        }
+
+
+        
     }
+
+    
 
     // Update is called once per frame
     void Update()
@@ -92,7 +101,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         else
         {
-           
             ui_Popup.SetActive(false);
             popupReason.text = "";
         }

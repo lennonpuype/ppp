@@ -16,6 +16,8 @@ public class OnboardingManager : MonoBehaviour
         PlayerPrefs.SetInt("FirstTimePlaying", 1);
         PlayerPrefs.Save();
 
+        Debug.Log("Complete Onboarding");
+
         ui_Onboarding.SetActive(false);
         ui_Login.SetActive(true);
     }
