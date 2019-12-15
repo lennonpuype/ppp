@@ -10,6 +10,7 @@ using UnityEditor;
 using System.Text;
 using System.Timers;
 using DentedPixel;
+using UnityEngine.XR.ARFoundation;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -17,7 +18,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject informPanelGameObject;
     public GameObject staticGameObject;
     public GameObject dynamicGameObject;
-    public GameObject joinedPlayersUI;
     public GameObject joinedPlayersPlayerMessage;
     public GameObject joinedPlayersHostMessage;
 
@@ -204,9 +204,34 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+
     public void resetARView()
     {
+        Debug.Log("Delete AR");
+        //ARSession.SetActive(false);
+        //ARSessionOrigin.SetActive(false);
+        //ARPlaneManager.SetActive(false);
+        //ARPointManager.SetActive(false);
+
+        //StartCoroutine(SetARBack());
+
+        ARSession arSession = ARSession.GetComponent<ARSession>();
+        arSession.Reset();
+
         //Camera.main.Reset();
+    }
+
+    IEnumerator SetARBack()
+    {
+        yield return new WaitForSeconds(.01f);
+        Debug.Log("Show AR");
+        ARSession.SetActive(true);
+        ARSessionOrigin.SetActive(true);
+        ARPlaneManager.SetActive(true);
+        ARPointManager.SetActive(true);
+
+        ARSession arSession = GetComponent<ARSession>();
+        arSession.Reset();
     }
 
     private void onlyLoadOnceOnStateChange()
@@ -223,6 +248,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             TimerBar.transform.localScale = new Vector3(0, 1, 1);
 
             Debug.Log(localId + " " + drawer);
+            timer.Enabled = false;
+
             if (localId == drawer)
             {
                 Debug.Log("Destroy Objects of drawer");
@@ -280,44 +307,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Debug.Log(localId + " " + drawerId);
 
-        //if (localId != drawerId)
-        //{
+        
+            
             timer = new Timer(timeAmount * 1000);
             timer.Elapsed += OnTimedEvent;
             timer.Enabled = true;
-
-
-            //secondsTimer = new Timer(1000);
-            //secondsTimer.Elapsed += SecondPassedEvent;
-            //secondsTimer.Enabled = true;
-        //}
+        
 
         LeanTween.scaleX(TimerBar, 1, timeAmount);
 
-
-
-        //if (spheresList.transform.childCount > 1)
-        //{
-        //    Debug.Log("Remove");
-        //    //for(int i = 0; i > spheresList.transform.childCount-1; i++)
-        //    //{
-        //    //    var getView = spheresList.transform.GetChild(i).gameObject;
-        //    //    //PhotonNetwork.Destroy(PhotonNetwork.PhotonViews[0]);
-        //    //    PhotonNetwork.Destroy(getView);
-        //    //    //PhotonNetwork.Destroy(spheresList.transform.GetChild(i));
-        //    //    //Destroy(spheresList.transform.GetChild(i));
-        //    //}
-        //    foreach (var child in spheresList.transform)
-        //    {
-        //        Debug.Log(child);
-        //    }
-        //}
-
-        //Debug.Log(localId + " " + drawerId);
-        //if (localId == drawerId)
-        //{
-        //    InvokeRepeating("startDrawerAnimation", 5.0f, 2.0f);
-        //}
 
 
         //Set the amount text
@@ -331,14 +329,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void SecondPassedEvent(System.Object source, ElapsedEventArgs e)
-    {
-        //Debug.Log("1second passed");
-        
-        //TimerBar = GetComponent<Image>();
-        //TimerBar.fillAmount = .2f;
-        //TimerBar.transform.localScale = new Vector3(0.2f, 1f, 1f);
-    }
 
     private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
     {
@@ -466,7 +456,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void loadGameUI()
     {
         //UI Fixed
-        joinedPlayersUI.SetActive(false);
         informPanelGameObject.SetActive(false);
         staticGameObject.SetActive(true);
         dynamicGameObject.SetActive(true);

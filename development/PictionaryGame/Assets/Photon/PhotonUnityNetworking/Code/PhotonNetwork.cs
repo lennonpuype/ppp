@@ -131,7 +131,12 @@ namespace Photon.Pun
 
         /// <summary>Currently used Cloud Region (if any). As long as the client is not on a Master Server or Game Server, the region is not yet defined.</summary>
         public static string CloudRegion { get { return (NetworkingClient != null && IsConnected && Server!=ServerConnection.NameServer) ? NetworkingClient.CloudRegion : null; } }
-        
+
+        public static void DestroyPlayerObjects(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>The cluster name provided by the Name Server.</summary>
         /// <remarks>
         /// The value is provided by the OpResponse for OpAuthenticate/OpAuthenticateOnce. See ConnectToRegion.
