@@ -8,7 +8,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEditor;
 using System.Text;
-using System.Timers;
 using DentedPixel;
 using UnityEngine.XR.ARFoundation;
 
@@ -81,12 +80,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     private bool animationStarted = true;
     List<GameObject> spheresArray = new List<GameObject>();
 
-    [Header("Timer")]
-    private int timeAmount = 45;
-    private static Timer timer;
-    public GameObject TimerBar;
-
-
+    //[Header("Timer")]
+    //private int timeAmount = 45;
+    //private static Timer timer;
+    //public GameObject TimerBar;
 
     private void Start()
     {
@@ -204,33 +201,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-
     public void resetARView()
     {
-        Debug.Log("Delete AR");
-        //ARSession.SetActive(false);
-        //ARSessionOrigin.SetActive(false);
-        //ARPlaneManager.SetActive(false);
-        //ARPointManager.SetActive(false);
-
-        //StartCoroutine(SetARBack());
-
         ARSession arSession = ARSession.GetComponent<ARSession>();
-        arSession.Reset();
-
-        //Camera.main.Reset();
-    }
-
-    IEnumerator SetARBack()
-    {
-        yield return new WaitForSeconds(.01f);
-        Debug.Log("Show AR");
-        ARSession.SetActive(true);
-        ARSessionOrigin.SetActive(true);
-        ARPlaneManager.SetActive(true);
-        ARPointManager.SetActive(true);
-
-        ARSession arSession = GetComponent<ARSession>();
         arSession.Reset();
     }
 
@@ -245,10 +218,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             var localId = PhotonNetwork.LocalPlayer.ActorNumber;
 
-            TimerBar.transform.localScale = new Vector3(0, 1, 1);
+            //TimerBar.transform.localScale = new Vector3(0, 1, 1);
 
             Debug.Log(localId + " " + drawer);
-            timer.Enabled = false;
+            //timer.Enabled = false;
 
             if (localId == drawer)
             {
@@ -308,13 +281,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         Debug.Log(localId + " " + drawerId);
 
         
-            
-            timer = new Timer(timeAmount * 1000);
-            timer.Elapsed += OnTimedEvent;
-            timer.Enabled = true;
-        
+        //if(localId != drawerId)
+        //{
+        //    timer = new Timer(timeAmount * 1000);
+        //    timer.Elapsed += OnTimedEvent;
+        //    timer.Enabled = true;
 
-        LeanTween.scaleX(TimerBar, 1, timeAmount);
+        //    LeanTween.scaleX(TimerBar, 1, timeAmount);
+        //}    
+
+        
 
 
 
@@ -330,13 +306,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
 
-    private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
-    {
-        Debug.Log("End round!");
-        ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
-        PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
-
-    }
+    //private void OnTimedEvent(System.Object source, ElapsedEventArgs e)
+    //{
+    //    Debug.Log("End round!");
+    //    ExitGames.Client.Photon.Hashtable isDrawerChange = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_DRAWER_CHANGE, "true" } };
+    //    PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
+    //}
 
     public void GuessTheWord()
     {

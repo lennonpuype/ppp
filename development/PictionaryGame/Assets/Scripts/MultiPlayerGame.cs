@@ -16,4 +16,5 @@ public class MultiPlayerGame
     public const string IS_THERE_A_DRAWER_CHANGE = "Is_There_A_Drawer_Change";
     public const string ROUND_END = "Round_End";
     public const string PREV_DRAWER = "Prev_Drawer";
+    public const string GOOD_GUESSER = "Good_Guesser";
 }
