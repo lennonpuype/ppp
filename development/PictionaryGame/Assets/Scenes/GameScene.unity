@@ -10992,6 +10992,7 @@ MonoBehaviour:
   ARSessionOrigin: {fileID: 939291496}
   ARPointManager: {fileID: 585772162}
   ARPlaneManager: {fileID: 191403384}
+  ARRefresh: {fileID: 1072335872}
   DrawAnimation: {fileID: 2080113413}
   buttonAudioSource: {fileID: 1128526609}
   buttonAudioClip: {fileID: 8300000, guid: 29a862ba0ffa84dda9cf028d5e20172b, type: 3}

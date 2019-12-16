@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject ARSessionOrigin;
     public GameObject ARPointManager;
     public GameObject ARPlaneManager;
+    public GameObject ARRefresh;
 
     [Header("DrawAnimations")]
     public GameObject DrawAnimation;
@@ -206,6 +207,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ARSessionOrigin.SetActive(false);
                 ARPointManager.SetActive(false);
                 ARPlaneManager.SetActive(false);
+                ARRefresh.SetActive(false);
 
                 Turn.text = "It is your turn to draw";
                 DrawWord.text = "Draw a " + globalWord;
@@ -239,9 +241,10 @@ public class GameManager : MonoBehaviourPunCallbacks
                 //AR
                 ARSession.SetActive(true);
                 ARSessionOrigin.SetActive(true);
-                ARPointManager.SetActive(true);
-                ARPlaneManager.SetActive(true);
+                ARPointManager.SetActive(false);
+                ARPlaneManager.SetActive(false);
                 ARButton.SetActive(true);
+                ARRefresh.SetActive(true);
 
                 Turn.text = drawer.NickName + " is the drawer";
                 Drawer.SetActive(false);
@@ -306,25 +309,31 @@ public class GameManager : MonoBehaviourPunCallbacks
     private void onlyLoadOnceOnStateChange()
     {
         var isThereADrawerChange = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Is_There_A_Drawer_Change"]);
-        
+
+        var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
+        var localId = PhotonNetwork.LocalPlayer.ActorNumber;
+
+        if (localId == drawer)
+        {
+            Debug.Log("Destroy Objects of drawer");
+            PhotonNetwork.DestroyPlayerObjects(drawer);
+        }
+
         if (isThereADrawerChange)
         {
             var players = PhotonNetwork.PlayerList;
-            var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
+            //var drawer = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
 
-            var localId = PhotonNetwork.LocalPlayer.ActorNumber;
+            //var localId = PhotonNetwork.LocalPlayer.ActorNumber;
 
             //TimerBar.transform.localScale = new Vector3(0, 1, 1);
 
             Debug.Log(localId + " " + drawer);
             //timer.Enabled = false;
 
-            if (localId == drawer)
-            {
-                Debug.Log("Destroy Objects of drawer");
-                PhotonNetwork.DestroyPlayerObjects(drawer);
-            }
-                if (drawer >= players.Length-1)
+            
+
+            if (drawer >= players.Length-1)
             {
                 startNewRound(0);
                 spheresList = null;

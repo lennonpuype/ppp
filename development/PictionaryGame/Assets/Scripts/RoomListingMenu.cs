@@ -18,13 +18,13 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
     {
         foreach (RoomInfo room in roomList)
         {
-
+            
             if (!room.RemovedFromList)
             {
                 gameText.text = room.Name;
 
                 Button joinGameButtonClone = Instantiate(gameButton) as Button;
-
+               
                 joinGameButtonClone.transform.parent = gameButtonList.transform;
                 joinGameButtonClone.transform.localPosition = new Vector3(0, 0, 0);
                 joinGameButtonClone.gameObject.SetActive(true);
@@ -39,7 +39,7 @@ public class RoomListingMenu : MonoBehaviourPunCallbacks
                 PhotonNetwork.LocalPlayer.SetCustomProperties(resetJoinList);
 
                 SceneManager.LoadSceneAsync("LobbyScene");
-
+                
             }
         }
 
