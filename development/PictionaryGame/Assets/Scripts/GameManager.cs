@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable isWinnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.IS_THERE_A_WINNER, "false" } };
         PhotonNetwork.CurrentRoom.SetCustomProperties(isWinnerProp);
 
+        ExitGames.Client.Photon.Hashtable almostGoalProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_ALMOST_HIT, "false" } };
+        PhotonNetwork.CurrentRoom.SetCustomProperties(almostGoalProp);
+
         playerIndex = getHostId;
         GameAllowed();
     }
@@ -158,8 +161,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         updatePlayerList();
 
         var goal = Convert.ToString(PhotonNetwork.CurrentRoom.CustomProperties["Goal_Score"]);
+        var goalAlmostHit = Convert.ToBoolean(PhotonNetwork.CurrentRoom.CustomProperties["Goal_Almost_Hit"]);
 
-        foreach(var goalButton in goals){
+        foreach (var goalButton in goals){
             if(goalButton.name == goal)
             {
                 //Debug.Log(goalButton.GetComponentInChildren<Text>().text);
@@ -176,6 +180,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
+            Debug.Log("Masterclient");
             masterGoal.SetActive(true);
             globalGoal.SetActive(false);
         }
@@ -186,10 +191,29 @@ public class GameManager : MonoBehaviourPunCallbacks
             globalGoal.GetComponentInChildren<Text>().text = "Reach " + goal + " Points to win!";
         }
 
+        if(PhotonNetwork.LocalPlayer.IsMasterClient && goalAlmostHit)
+        {
+            Debug.Log("goalalmosthit");
+            masterGoal.SetActive(false);
+            globalGoal.SetActive(true);
+            globalGoal.GetComponentInChildren<Text>().text = "Reach " + goal + " Points to win!";
+        }
+
         if (gameIsStarted)
         {
             onlyLoadOnceOnStateChange();
             var drawerInitId = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Drawer"]);
+
+            int playerScore = Convert.ToInt16(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
+            int roomGoal = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Goal_Score"]) - 100;
+            //Debug.Log(playerScore + " " + roomGoal);
+
+            if (playerScore == roomGoal)
+            {
+                //Debug.Log("Almost hit");
+                ExitGames.Client.Photon.Hashtable almostGoalProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_ALMOST_HIT, "true" } };
+                PhotonNetwork.CurrentRoom.SetCustomProperties(almostGoalProp);
+            }
             
 
             var players = PhotonNetwork.PlayerList;

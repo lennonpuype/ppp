@@ -18,4 +18,5 @@ public class MultiPlayerGame
     public const string PREV_DRAWER = "Prev_Drawer";
     public const string GOOD_GUESSER = "Good_Guesser";
     public const string WINNERSOUND = "Winnersound";
+    public const string GOAL_ALMOST_HIT = "Goal_Almost_Hit";
 }
