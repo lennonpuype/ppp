@@ -17,4 +17,5 @@ public class MultiPlayerGame
     public const string ROUND_END = "Round_End";
     public const string PREV_DRAWER = "Prev_Drawer";
     public const string GOOD_GUESSER = "Good_Guesser";
+    public const string WINNERSOUND = "Winnersound";
 }

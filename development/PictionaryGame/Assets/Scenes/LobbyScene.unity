@@ -6201,7 +6201,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonAudioSource: {fileID: 1884919020}
-  buttonAudioClip: {fileID: 8300000, guid: 0326000a195834f6e8698d5265c46414, type: 3}
+  buttonAudioClip: {fileID: 8300000, guid: 29a862ba0ffa84dda9cf028d5e20172b, type: 3}
+  emptyFieldAudioSource: {fileID: 0}
+  emptyFieldAudioClip: {fileID: 8300000, guid: e511e36b1168e4b6ba9b140c119d77be, type: 3}
+  goodAudioSource: {fileID: 0}
+  goodAudioClip: {fileID: 8300000, guid: f09bd0704856441b99cd542084b3b5b7, type: 3}
+  wrongAudioSource: {fileID: 0}
+  wrongAudioClip: {fileID: 8300000, guid: db869529369df4067adffa50ac6f44e1, type: 3}
+  loseAudioSource: {fileID: 0}
+  loseAudioClip: {fileID: 8300000, guid: 54e55924131b64b2cafbcbe623ed91b0, type: 3}
+  winAudioSource: {fileID: 0}
+  winAudioClip: {fileID: 8300000, guid: e639fc94f98c24d1f91393103af8d33a, type: 3}
 --- !u!4 &1722499905
 Transform:
   m_ObjectHideFlags: 0
