@@ -208,7 +208,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             int roomGoal = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Goal_Score"]) - 100;
             //Debug.Log(playerScore + " " + roomGoal);
 
-            if (playerScore == roomGoal)
+            if (playerScore >= roomGoal)
             {
                 //Debug.Log("Almost hit");
                 ExitGames.Client.Photon.Hashtable almostGoalProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.GOAL_ALMOST_HIT, "true" } };
@@ -509,8 +509,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             PhotonNetwork.CurrentRoom.SetCustomProperties(isDrawerChange);
 
             var newScore = Convert.ToString(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
+            var newScoreInt = Convert.ToInt16(PhotonNetwork.LocalPlayer.CustomProperties["Player_Score"]);
+            var goalInt = Convert.ToInt16(PhotonNetwork.CurrentRoom.CustomProperties["Goal_Score"]);
             Debug.Log(newScore + " " + goal);
-            if (newScore == goal)
+            if (newScoreInt >= goalInt)
             {
                 Debug.Log("We have a winner");
                 ExitGames.Client.Photon.Hashtable winnerProp = new ExitGames.Client.Photon.Hashtable { { MultiPlayerGame.WINNER, PhotonNetwork.LocalPlayer.NickName } };
